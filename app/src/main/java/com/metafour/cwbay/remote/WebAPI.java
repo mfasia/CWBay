@@ -22,6 +22,7 @@ public class WebAPI {
     private static final String USER_LOGIN_PATH = "/user/login/";
     private static final String USER_VIEW_PATH = "/user/view/";
     private static final String USER_EDIT_PATH = "/user/edit/";
+    private static final String USER_CREATE_PATH = "/user/create";
 
     public static interface UserLoginCallback {
         public void onUserLoginFailed(String reason);
@@ -38,6 +39,11 @@ public class WebAPI {
         public void onUserEditSuccess(User user);
     }
 
+    public static interface UserCreateCallback {
+        public void onUserCreateFailed(String reason);
+        public void onUserCreateSuccess(User user);
+    }
+
     public static void userLogin(final Context context, final UserLoginCallback callback, final String email, final String pass) {
         WebConnection.getInstance().setCredentials(email, pass);
         String encodedEmail = email;
@@ -51,10 +57,10 @@ public class WebAPI {
                 if (callback != null) {
                     switch (response.getStatus()) {
                         case WebConnection.Status.NOT_FOUND:
-                            callback.onUserLoginFailed(context.getResources().getString(R.string.invalid_login_creds));
+                            callback.onUserLoginFailed(context.getResources().getString(R.string.login_invalid_cred));
                             break;
                         case WebConnection.Status.UNAUTHORIZED:
-                            callback.onUserLoginFailed(context.getResources().getString(R.string.invalid_login_creds));
+                            callback.onUserLoginFailed(context.getResources().getString(R.string.login_invalid_cred));
                             break;
                         case WebConnection.Status.OK:
                             callback.onUserLoginSuccess(UserBuilder.build(response.getContent()));
@@ -105,7 +111,6 @@ public class WebAPI {
             @Override
             public void onResponse(WebConnection.Response response) {
                 if (callback != null) {
-                    Log.i("CWBay", response.getStatus()+"");
                     switch (response.getStatus()) {
                         case WebConnection.Status.OK:
                             callback.onUserEditSuccess(UserBuilder.build(response.getContent()));
@@ -119,5 +124,34 @@ public class WebAPI {
             }
         },
         USER_EDIT_PATH + encodedEmail, UserBuilder.serialize(user));
+    }
+
+    public static void userCreate(final Context context, final UserCreateCallback callback, final User user) {
+        WebConnection.getInstance().request(new WebConnection.Callback() {
+            @Override
+            public void onResponse(WebConnection.Response response) {
+                if (callback != null) {
+                    switch (response.getStatus()) {
+                        case WebConnection.Status.NOT_FOUND:
+                            callback.onUserCreateFailed(context.getResources().getString(R.string.login_invalid_cred));
+                            break;
+                        case WebConnection.Status.EXISTS:
+                            callback.onUserCreateFailed("Alreay exist");
+                            break;
+                        case WebConnection.Status.UNAUTHORIZED:
+                            callback.onUserCreateFailed(context.getResources().getString(R.string.login_invalid_cred));
+                            break;
+                        case WebConnection.Status.OK:
+                            callback.onUserCreateSuccess(UserBuilder.build(response.getContent()));
+                            break;
+                        default:
+                            callback.onUserCreateFailed(context.getResources().getString(R.string.net_err));
+                            break;
+                    }
+
+                }
+            }
+        },
+        USER_CREATE_PATH, UserBuilder.serialize(user));
     }
 }
