@@ -1,7 +1,6 @@
 package com.metafour.cwbay.remote;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -16,17 +15,15 @@ import org.apache.http.impl.auth.DigestScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
-
 /**
  * Created by nadim on 1/21/15.
  */
 public class WebConnection {
     public static class Status {
         public static final int OK = 200;
-        public static final int EXISTS = 302;
         public static final int UNAUTHORIZED = 401;
         public static final int NOT_FOUND = 404;
+        public static final int EXISTS = 409;
         public static final int NET_ERROR = 1000;
     }
     public static interface Callback {
@@ -138,8 +135,7 @@ public class WebConnection {
                     HttpResponse response = client.execute(post);
                     return new Response(response.getStatusLine().getStatusCode(), EntityUtils.toString(response.getEntity()));
                 } catch (Exception e) {
-                    //Log.i("CWBay", e.getMessage());
-                    return new Response(WebConnection.Status.NET_ERROR, e.getMessage());
+                    return new Response(WebConnection.Status.NET_ERROR, "");
                 }
             }
 
