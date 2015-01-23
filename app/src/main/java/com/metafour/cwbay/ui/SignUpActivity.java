@@ -1,4 +1,4 @@
-package com.metafour.cwbay;
+package com.metafour.cwbay.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.remote.WebConnection;

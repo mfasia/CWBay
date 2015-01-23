@@ -1,4 +1,4 @@
-package com.metafour.cwbay;
+package com.metafour.cwbay.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.remote.WebConnection;
@@ -85,7 +86,7 @@ public class SignInActivity extends ActionBarActivity implements WebConnection.C
             return;
         }
         AppUtility.showProgressBarAndDisableButton(progressBar, loginButton);
-        WebConnection.getInstance().connect(this, "http://192.168.0.57:8000");
+        WebConnection.getInstance().connect(this, "http://192.168.1.176:8000");
         WebAPI.userLogin(this, new WebAPI.UserLoginCallback() {
             @Override
             public void onUserLoginFailed(String reason) {

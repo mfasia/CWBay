@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.metafour.cwbay.model.User;
-import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.remote.WebConnection;
+import com.metafour.cwbay.ui.SignInActivity;
+import com.metafour.cwbay.ui.SignUpActivity;
 
 
 public class MainActivity extends ActionBarActivity implements WebConnection.Callback {
