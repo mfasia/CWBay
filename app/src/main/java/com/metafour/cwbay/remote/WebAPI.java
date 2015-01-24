@@ -2,13 +2,11 @@ package com.metafour.cwbay.remote;
 
 import android.content.Context;
 import android.util.Log;
-import android.webkit.URLUtil;
 
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.model.UserBuilder;
-
-import org.apache.http.client.utils.URLEncodedUtils;
+import com.metafour.cwbay.util.Constants;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -131,15 +129,10 @@ public class WebAPI {
             @Override
             public void onResponse(WebConnection.Response response) {
                 if (callback != null) {
+                    Log.i(Constants.ACTIVITY_LOG_TAG, response.getStatus() + "");
                     switch (response.getStatus()) {
-                        case WebConnection.Status.NOT_FOUND:
-                            callback.onUserCreateFailed(context.getResources().getString(R.string.login_invalid_cred));
-                            break;
                         case WebConnection.Status.EXISTS:
                             callback.onUserCreateFailed("Alreay exist");
-                            break;
-                        case WebConnection.Status.UNAUTHORIZED:
-                            callback.onUserCreateFailed(context.getResources().getString(R.string.login_invalid_cred));
                             break;
                         case WebConnection.Status.OK:
                             callback.onUserCreateSuccess(UserBuilder.build(response.getContent()));
