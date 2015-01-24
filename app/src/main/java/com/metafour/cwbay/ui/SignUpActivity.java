@@ -13,7 +13,8 @@ import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.remote.WebConnection;
-import com.metafour.cwbay.util.AppUtility;
+import com.metafour.cwbay.util.Constants;
+import com.metafour.cwbay.util.Utility;
 
 /**
  * Created by Noor on 1/22/2015.
@@ -52,29 +53,29 @@ public class SignUpActivity extends ActionBarActivity implements WebConnection.C
     }
 
     private void createAccount(View v) {
-        Log.i(AppUtility.LOG_TAG, "Create account button clicked");
-        Log.i(AppUtility.LOG_TAG, "Create account button clicked");
+        Log.i(Constants.ACTIVITY_LOG_TAG, "Create account button clicked");
+        Log.i(Constants.ACTIVITY_LOG_TAG, "Create account button clicked");
         User user = new User();
         user.setEmail(this.userEmail.getText().toString());
         user.setName(this.fullName.getText().toString());
         user.setPassword(this.password.getText().toString());
 
-        AppUtility.showProgressBarAndDisableButton(progressBar, createButton);
-        WebConnection.getInstance().connect(this, "http://192.168.0.57:8000");
+        Utility.showProgressBarAndDisableButton(progressBar, createButton);
+        WebConnection.getInstance().connect(this, "http://192.168.0.89:8000");
 
         WebAPI.userCreate(context, new WebAPI.UserCreateCallback(){
 
             @Override
             public void onUserCreateFailed(String reason) {
-                Log.i(AppUtility.LOG_TAG, "Create account failed with reason : " + reason);
-                AppUtility.showLongLengthToast(context, reason);
-                AppUtility.hideProgressBarAndEnableButton(progressBar, createButton);
+                Log.i(Constants.ACTIVITY_LOG_TAG, "Create account failed with reason : " + reason);
+                Utility.showLongLengthToast(context, reason);
+                Utility.hideProgressBarAndEnableButton(progressBar, createButton);
             }
 
             @Override
             public void onUserCreateSuccess(User user) {
-                Log.i(AppUtility.LOG_TAG, "Account creation successful. New user details is " + user.toString());
-                AppUtility.hideProgressBarAndEnableButton(progressBar, createButton);
+                Log.i(Constants.ACTIVITY_LOG_TAG, "Account creation successful. New user details is " + user.toString());
+                Utility.hideProgressBarAndEnableButton(progressBar, createButton);
             }
         }, user);
     }

@@ -15,7 +15,8 @@ import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.remote.WebConnection;
-import com.metafour.cwbay.util.AppUtility;
+import com.metafour.cwbay.util.Constants;
+import com.metafour.cwbay.util.Utility;
 
 /**
  * Created by Noor on 1/22/2015.
@@ -71,7 +72,7 @@ public class SignInActivity extends ActionBarActivity implements WebConnection.C
 
     @Override
     public void onResponse(WebConnection.Response response) {
-        Log.i("CWBay", response.getStatus() + " " + response.getContent());
+        Log.i(Constants.ACTIVITY_LOG_TAG, response.getStatus() + " " + response.getContent());
     }
 
     /**
@@ -80,25 +81,25 @@ public class SignInActivity extends ActionBarActivity implements WebConnection.C
      * @param view @View reference
      */
     private void doSignIn(View view) {
-        Log.i("CWBay", "Starts signing.......");
+        Log.i(Constants.ACTIVITY_LOG_TAG, "Starts signing.......");
         if (userEmail.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
-            AppUtility.showShortLengthToast(context, context.getResources().getString(R.string.login_cred_empty));
+            Utility.showShortLengthToast(context, context.getResources().getString(R.string.login_cred_empty));
             return;
         }
-        AppUtility.showProgressBarAndDisableButton(progressBar, loginButton);
+        Utility.showProgressBarAndDisableButton(progressBar, loginButton);
         WebConnection.getInstance().connect(this, "http://192.168.1.176:8000");
         WebAPI.userLogin(this, new WebAPI.UserLoginCallback() {
             @Override
             public void onUserLoginFailed(String reason) {
-                Log.i(AppUtility.LOG_TAG, "Login failed with reason : " + reason);
-                AppUtility.showShortLengthToast(context, reason);
-                AppUtility.hideProgressBarAndEnableButton(progressBar, loginButton);
+                Log.i(Constants.ACTIVITY_LOG_TAG, "Login failed with reason : " + reason);
+                Utility.showShortLengthToast(context, reason);
+                Utility.hideProgressBarAndEnableButton(progressBar, loginButton);
             }
 
             @Override
             public void onUserLoginSuccess(User user) {
-                Log.i(AppUtility.LOG_TAG, "Login successful. Login details is " + user.toString());
-                AppUtility.hideProgressBarAndEnableButton(progressBar, loginButton);
+                Log.i(Constants.ACTIVITY_LOG_TAG, "Login successful. Login details is " + user.toString());
+                Utility.hideProgressBarAndEnableButton(progressBar, loginButton);
             }
         }, userEmail.getText().toString(), password.getText().toString());
     }

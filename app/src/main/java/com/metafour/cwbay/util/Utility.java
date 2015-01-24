@@ -9,8 +9,7 @@ import android.widget.Toast;
 /**
  * Created by Noor on 1/22/2015.
  */
-public class AppUtility {
-    public static final String LOG_TAG = "CWBay";
+public class Utility {
 
     public static void showShortLengthToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
