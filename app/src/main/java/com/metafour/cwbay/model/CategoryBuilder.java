@@ -35,16 +35,4 @@ public class CategoryBuilder {
         return category;
     }
 
-    public static String serialize(Category category) {
-        String jsonStr = "";
-        JSONObject json = new JSONObject();
-        try {
-            json.put(Category.JSON_TAG_ID, category.getId());
-            json.put(Category.JSON_TAG_NAME, category.getName());
-            jsonStr = json.toString();
-        } catch (Exception e) {
-            jsonStr = "";
-        }
-        return jsonStr;
-    }
 }
