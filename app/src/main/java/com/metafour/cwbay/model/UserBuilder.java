@@ -30,9 +30,9 @@ public class UserBuilder {
         String jsonStr = "";
         JSONObject json = new JSONObject();
         try {
-            json.put("email", user.getEmail());
-            json.put("password", user.getPassword());
-            json.put("name", user.getName());
+            json.put(User.JSON_TAG_EMAIL, user.getEmail());
+            json.put(User.JSON_TAG_PASSWORD, user.getPassword());
+            json.put(User.JSON_TAG_NAME, user.getName());
             jsonStr = json.toString();
         } catch (Exception e) {
             jsonStr = "";

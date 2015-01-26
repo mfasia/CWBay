@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.metafour.cwbay.R;
+import com.metafour.cwbay.model.Category;
+import com.metafour.cwbay.model.CategoryBuilder;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.model.UserBuilder;
 import com.metafour.cwbay.util.Constants;
@@ -21,6 +23,8 @@ public class WebAPI {
     private static final String USER_VIEW_PATH = "/user/view/";
     private static final String USER_EDIT_PATH = "/user/edit/";
     private static final String USER_CREATE_PATH = "/user/create";
+
+    private static final String CATEGORY_VIEW_PATH = "/category/view/";
 
     public static interface UserLoginCallback {
         public void onUserLoginFailed(String reason);
@@ -40,6 +44,11 @@ public class WebAPI {
     public static interface UserCreateCallback {
         public void onUserCreateFailed(String reason);
         public void onUserCreateSuccess(User user);
+    }
+
+    public static interface CategoryViewCallback {
+        public void onCategoryViewFailed(String reason);
+        public void onCategoryViewSuccess(Category category);
     }
 
     public static void userLogin(final Context context, final UserLoginCallback callback, final String email, final String pass) {
@@ -146,5 +155,25 @@ public class WebAPI {
             }
         },
         USER_CREATE_PATH, UserBuilder.serialize(user));
+    }
+
+    public static void categoryView(final Context context, final CategoryViewCallback callback, final int id) {
+        WebConnection.getInstance().request(new WebConnection.Callback() {
+            @Override
+            public void onResponse(WebConnection.Response response) {
+                if (callback != null) {
+                    switch (response.getStatus()) {
+                        case WebConnection.Status.OK:
+                            callback.onCategoryViewSuccess(CategoryBuilder.build(response.getContent()));
+                            break;
+                        default:
+                            callback.onCategoryViewFailed(context.getResources().getString(R.string.net_err));
+                            break;
+                    }
+
+                }
+            }
+        },
+        CATEGORY_VIEW_PATH + id);
     }
 }

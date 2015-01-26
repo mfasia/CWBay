@@ -9,6 +9,7 @@ public class User {
     public static final String JSON_TAG_NAME = "name";
     public static final String JSON_TAG_EMAIL = "email";
     public static final String JSON_TAG_IMAGE = "image";
+    public static final String JSON_TAG_PASSWORD = "password";
     public static final String JSON_TAG_MEMBER_SINCE = "memberSince";
 
     private String name;
