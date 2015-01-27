@@ -9,11 +9,13 @@ public class Category {
     public static final String JSON_TAG_ID = "id";
     public static final String JSON_TAG_NAME = "name";
     public static final String JSON_TAG_CHILDREN = "children";
+    public static final String JSON_TAG_ADS = "ads";
     public static final String JSON_TAG_HAS_CHILDREN = "hasChildren";
 
     private int id;
     private String name;
     private List<Category> children;
+    private List<Ad> ads;
     private boolean hasChildren;
 
     public int getId() {
@@ -48,12 +50,21 @@ public class Category {
         this.hasChildren = hasChildren;
     }
 
+    public List<Ad> getAds() {
+        return ads;
+    }
+
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", children=" + children +
+                ", ads=" + ads +
                 ", hasChildren=" + hasChildren +
                 '}';
     }

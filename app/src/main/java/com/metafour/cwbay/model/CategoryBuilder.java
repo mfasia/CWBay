@@ -1,5 +1,7 @@
 package com.metafour.cwbay.model;
 
+import com.metafour.cwbay.util.Constants;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,6 +32,19 @@ public class CategoryBuilder {
                 children.add(child);
             }
             category.setChildren(children);
+            JSONArray adsJson = jsonCategory.getJSONArray(Category.JSON_TAG_ADS);
+            List<Ad> ads = new ArrayList<Ad>();
+            for (int i = 0; i < adsJson.length(); i++) {
+                JSONObject adJson = adsJson.getJSONObject(i);
+                Ad ad = new Ad();
+                ad.setId(adJson.getInt(Ad.JSON_TAG_ID));
+                ad.setTitle(adJson.getString(Ad.JSON_TAG_TITLE));
+                ad.setPrice(adJson.getDouble(Ad.JSON_TAG_PRICE));
+                ad.setPostedAt(Constants.DATE_FORMAT.parse(adJson.getString(Ad.JSON_TAG_POSTED_AT)));
+                ad.setPostedFrom(adJson.getString(Ad.JSON_TAG_POSTED_FROM));
+                ads.add(ad);
+            }
+            category.setAds(ads);
         } catch (Exception e) {
             category = null;
         }
