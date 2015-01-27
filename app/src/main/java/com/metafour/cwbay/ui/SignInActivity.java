@@ -88,16 +88,16 @@ public class SignInActivity extends ActionBarActivity implements WebConnection.C
         }
         Utility.showProgressBarAndDisableButton(progressBar, loginButton);
         WebConnection.getInstance().connect(this, "http://192.168.1.176:8000");
-        WebAPI.userLogin(this, new WebAPI.UserLoginCallback() {
+        WebAPI.userLogin(this, new WebAPI.Callback<User>() {
             @Override
-            public void onUserLoginFailed(String reason) {
+            public void onFailed(String reason) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Login failed with reason : " + reason);
                 Utility.showShortLengthToast(context, reason);
                 Utility.hideProgressBarAndEnableButton(progressBar, loginButton);
             }
 
             @Override
-            public void onUserLoginSuccess(User user) {
+            public void onSuccess(User user) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Login successful. Login details is " + user.toString());
                 Utility.hideProgressBarAndEnableButton(progressBar, loginButton);
             }

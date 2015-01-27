@@ -63,17 +63,17 @@ public class SignUpActivity extends ActionBarActivity implements WebConnection.C
         Utility.showProgressBarAndDisableButton(progressBar, createButton);
         WebConnection.getInstance().connect(this, "http://192.168.0.89:8000");
 
-        WebAPI.userCreate(context, new WebAPI.UserCreateCallback(){
+        WebAPI.userCreate(context, new WebAPI.Callback<User>(){
 
             @Override
-            public void onUserCreateFailed(String reason) {
+            public void onFailed(String reason) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Create account failed with reason : " + reason);
                 Utility.showLongLengthToast(context, reason);
                 Utility.hideProgressBarAndEnableButton(progressBar, createButton);
             }
 
             @Override
-            public void onUserCreateSuccess(User user) {
+            public void onSuccess(User user) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Account creation successful. New user details is " + user.toString());
                 Utility.hideProgressBarAndEnableButton(progressBar, createButton);
             }
