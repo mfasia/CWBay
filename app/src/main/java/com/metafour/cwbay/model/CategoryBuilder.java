@@ -26,6 +26,7 @@ public class CategoryBuilder {
                 Category child = new Category();
                 child.setId(childJson.getInt(Category.JSON_TAG_ID));
                 child.setName(childJson.getString(Category.JSON_TAG_NAME));
+                child.setHasChildren(childJson.getBoolean(Category.JSON_TAG_HAS_CHILDREN));
                 children.add(child);
             }
             category.setChildren(children);
