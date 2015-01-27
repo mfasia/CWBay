@@ -1,5 +1,7 @@
 package com.metafour.cwbay.model;
 
+import com.metafour.cwbay.util.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,11 +17,10 @@ public class UserBuilder {
         try {
             user = new User();
             JSONObject jsonUser = new JSONObject(json);
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             user.setEmail(jsonUser.getString(User.JSON_TAG_EMAIL));
             user.setName(jsonUser.getString(User.JSON_TAG_NAME));
             user.setImage(jsonUser.getString(User.JSON_TAG_IMAGE));
-            user.setMemberSince(df.parse(jsonUser.getString(User.JSON_TAG_MEMBER_SINCE)));
+            user.setMemberSince(Constants.DATE_FORMAT.parse(jsonUser.getString(User.JSON_TAG_MEMBER_SINCE)));
         } catch (Exception e) {
             user = null;
         }
