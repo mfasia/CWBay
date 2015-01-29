@@ -1,6 +1,7 @@
 package com.metafour.cwbay.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -100,7 +101,11 @@ public class SignInActivity extends ActionBarActivity implements WebConnection.C
             public void onSuccess(User user) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Login successful. Login details is " + user.toString());
                 Utility.hideProgressBarAndEnableButton(progressBar, loginButton);
+                goToProfileUpdate();
             }
         }, userEmail.getText().toString(), password.getText().toString());
+    }
+    public void goToProfileUpdate(){
+        startActivity(new Intent(this, ProfileUpdateActivity.class));
     }
 }
