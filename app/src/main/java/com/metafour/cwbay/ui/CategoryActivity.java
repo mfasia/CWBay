@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.metafour.cwbay.R;
+import com.metafour.cwbay.adapter.SingleLineCategoryAdapter;
+import com.metafour.cwbay.model.Ad;
 import com.metafour.cwbay.model.Category;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.util.Constants;
@@ -68,10 +70,23 @@ public class CategoryActivity extends ActionBarActivity {
                 final Category category = (Category) parent.getItemAtPosition(position);
                 if (category.isHasChildren()) {
                     CategoryActivity.idToShow = category.getId();
-                    showNextCategoryActivity();
+                    showNextCategoryActivity(CategoryActivity.class);
+                } else if(category.getAds() != null){
+                    ProductListActivity.category = category;
+                    showNextCategoryActivity(ProductListActivity.class);
                 } else {
-                    Utility.showShortLengthToast(context, "Product list page is not implemented yet");
-                    // showProductListPage();
+                    List<Ad> ads = new ArrayList<Ad>();
+                    for(int i = 1; i <= 10; i++) {
+                        Ad ad = new Ad();
+                        ad.setPostedFrom("Dhaka");
+                        ad.setTitle("First product" + i);
+                        ad.setPrice(200 + i);
+                        ads.add(ad);
+                    }
+                    category.setAds(ads);
+                    ProductListActivity.category = category;
+                    showNextCategoryActivity(ProductListActivity.class);
+                    Utility.showShortLengthToast(context, "No ads found");
                 }
             }
 
@@ -86,15 +101,7 @@ public class CategoryActivity extends ActionBarActivity {
     }
 
     private void showCategories() {
-        catLItems.setAdapter(new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1, android.R.id.text1, category.getChildren()) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                text1.setText(getItem(position).getName());
-                return view;
-            }
-        });
+        catLItems.setAdapter(new SingleLineCategoryAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, category.getChildren()));
 
         if (idToShow > 0) {
             prevPath = path;
@@ -106,9 +113,9 @@ public class CategoryActivity extends ActionBarActivity {
         }
     }
 
-    private void showNextCategoryActivity () {
+    private void showNextCategoryActivity (Class clz) {
         Log.i(Constants.ACTIVITY_LOG_TAG, "Going to open category page for id = " + idToShow);
-        startActivity(new Intent(this, CategoryActivity.class));
+        startActivity(new Intent(this, clz));
         Utility.nextWithAnimation(this);
     }
 
