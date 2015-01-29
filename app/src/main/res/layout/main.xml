@@ -3,17 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_vertical" >
+    android:gravity="center_vertical"
+    android:background="@drawable/cwbay_background1">
 
     <Button
         android:id="@+id/mainBSignIn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-         android:text="@string/btn_sign_in"/>
+        android:text="@string/btn_sign_in"/>
 
     <Button
         android:id="@+id/mainBSignUp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_sign_up" />
+
+    <Button
+        android:id="@+id/mainBCat"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Categories" />
+
+
+    <Button
+        android:id="@+id/mainBCatG"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Categories Grid" />
+
+    <Button
+        android:id="@+id/mainBRoot"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Root" />
+
 </LinearLayout>
