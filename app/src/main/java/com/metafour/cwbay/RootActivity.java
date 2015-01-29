@@ -1,6 +1,5 @@
 package com.metafour.cwbay;
 
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -85,7 +84,8 @@ public class RootActivity extends FragmentActivity{
         mDrawerList.setAdapter(adapter);
 
         // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        android.app.ActionBar ab = getActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -115,7 +115,7 @@ public class RootActivity extends FragmentActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_root, menu);
         return true;
     }
 
@@ -149,7 +149,7 @@ public class RootActivity extends FragmentActivity{
      * Diplaying fragment view for selected nav drawer list item
      * */
     private void displayView(int position) {
-        // update the main content by replacing fragments
+        // update the menu_root content by replacing fragments
         Fragment fragment = null;
         switch (position) {
             case 0:
