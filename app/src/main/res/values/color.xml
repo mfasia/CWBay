@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="item_title">#fff</color>
+    <color name="item_background_normal">#103120</color>
+    <color name="item_background_pressed">#992416</color>
+    <color name="item_divider">#272727</color>
+    <color name="item_number_bg">#626262</color>
+    <color name="item_number_color">#c5c4c4</color>
+
+</resources>
