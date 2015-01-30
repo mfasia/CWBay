@@ -132,14 +132,14 @@ public class Ad {
         this.contactEmail = contactEmail;
     }
 
-    public List<String> getImages() {
-        return images;
-    }
-
     /**
      * List of links to images.
      * @param images
      */
+    public List<String> getImages() {
+        return images;
+    }
+
     public void setImages(List<String> images) {
         this.images = images;
     }
