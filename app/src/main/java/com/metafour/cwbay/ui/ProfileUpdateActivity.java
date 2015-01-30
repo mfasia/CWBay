@@ -32,7 +32,7 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
 
     private Context context;
     private Button updateButton,changePassword;
-    private EditText fullName, userEmail, newPassword, confPassword, phoneNumber,location;
+    private EditText fullName, userEmail, phoneNumber,location;
     private ProgressBar progressBar;
     User user = new User();
 
@@ -44,8 +44,6 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
         this.progressBar = (ProgressBar) findViewById(R.id.profileUpdateProgressBar);
         this.fullName = (EditText)findViewById(R.id.profileUpdateFullName);
         this.userEmail = (EditText)findViewById(R.id.profileUpdateEmail);
-        this.newPassword = (EditText)findViewById(R.id.profileUpdatePassword);
-        this.confPassword = (EditText)findViewById(R.id.profileUpdateConfPassword);
         this.updateButton = (Button) findViewById(R.id.profileUpdate);
         this.phoneNumber = (EditText)findViewById(R.id.profileUpdatePhone);
         this.changePassword = (Button) findViewById(R.id.profileUpdateChangePassword);
@@ -69,6 +67,14 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
     }
 
     private void setUserData(){
+        User loggedUser = WebAPI.getLoggedInUser(ProfileUpdateActivity.this);
+        if(loggedUser != null){
+            fullName.setText(loggedUser.getName());
+            userEmail.setText(loggedUser.getEmail());
+            phoneNumber.setText(loggedUser.getPhone());
+        } else {
+            Log.i(Constants.ACTIVITY_LOG_TAG,"No logged user found!");
+        }
     }
 
     public void showChangePasswordView(){
@@ -107,7 +113,6 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
         Log.i(Constants.ACTIVITY_LOG_TAG, "Create account button clicked");
         user.setEmail(this.userEmail.getText().toString());
         user.setName(this.fullName.getText().toString());
-        user.setPassword(this.newPassword.getText().toString());
         user.setPhone(this.phoneNumber.getText().toString());
         user.setPlace(this.location.getText().toString());
 
@@ -173,7 +178,6 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
         boolean ret = true;
 
         if (!Validation.hasText(fullName)) ret = false;
-        if (!Validation.hasText(newPassword)) ret = false;
         if (!Validation.isEmailAddress(userEmail, true)) ret = false;
         if (!Validation.isPhoneNumber(phoneNumber, false)) ret = false;
 

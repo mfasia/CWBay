@@ -38,19 +38,7 @@
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/profileUpdatePassword"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_password"
-        android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/profileUpdateConfPassword"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_password"
-        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/profileUpdateLocation"
