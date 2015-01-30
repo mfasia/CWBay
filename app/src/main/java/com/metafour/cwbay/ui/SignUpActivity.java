@@ -61,7 +61,7 @@ public class SignUpActivity extends ActionBarActivity implements WebConnection.C
         user.setPassword(this.password.getText().toString());
 
         Utility.showProgressBarAndDisableButton(progressBar, createButton);
-        WebConnection.getInstance().connect(this, "http://192.168.0.89:8000");
+        //WebConnection.getInstance().connect(this, "http://192.168.0.89:8000");
 
         WebAPI.userCreate(context, new WebAPI.Callback<User>(){
 

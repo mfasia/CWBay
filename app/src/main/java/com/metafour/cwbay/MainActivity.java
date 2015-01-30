@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity implements WebConnection.Cal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        WebConnection.getInstance().connect(this, "http://192.168.0.57:8000");
+        //WebConnection.getInstance().connect(this, "http://192.168.0.57:8000");
         btnSignIn = (Button)findViewById(R.id.mainBSignIn);
         btnSignUp = (Button)findViewById(R.id.mainBSignUp);
         btnCat = (Button)findViewById(R.id.mainBCat);
