@@ -100,4 +100,8 @@ public class WebConnection {
     public void request(final Callback callback, final String path) {
         request(callback, path, null);
     }
+
+    public void request(final Callback callback) {
+        request(callback, null, null);
+    }
 }
