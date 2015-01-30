@@ -14,6 +14,8 @@ public class Ad {
     public static final String JSON_TAG_TIME = "time";
     public static final String JSON_TAG_PLACE = "place";
     public static final String JSON_TAG_PROPS = "props";
+    public static final String JSON_TAG_KEY = "key";
+    public static final String JSON_TAG_VALUE = "value";
     public static final String JSON_TAG_VIEWS = "views";
     public static final String JSON_TAG_FAV = "fav";
     public static final String JSON_TAG_CONTACT = "contact";

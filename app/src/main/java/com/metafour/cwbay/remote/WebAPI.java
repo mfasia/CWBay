@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.metafour.cwbay.R;
+import com.metafour.cwbay.model.Ad;
+import com.metafour.cwbay.model.AdBuilder;
 import com.metafour.cwbay.model.Category;
 import com.metafour.cwbay.model.CategoryBuilder;
 import com.metafour.cwbay.model.User;
@@ -197,5 +199,25 @@ public class WebAPI {
             }
         },
         "");
+    }
+
+    public static void adDetails(final Context context, final Callback<Ad> callback, final String id) {
+        WebConnection.getInstance().request(new WebConnection.Callback() {
+            @Override
+            public void onResponse(WebConnection.Response response) {
+                if (callback != null) {
+                    switch (response.getStatus()) {
+                        case WebConnection.Status.OK:
+                            Ad ad = AdBuilder.build(response.getContent());
+                            ad.setId(id);
+                            callback.onSuccess(ad);
+                            break;
+                        default:
+                            callback.onFailed(context.getResources().getString(R.string.net_err));
+                            break;
+                    }
+                }
+            }
+        }, id);
     }
 }
