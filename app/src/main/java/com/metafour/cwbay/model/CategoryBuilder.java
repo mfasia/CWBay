@@ -37,11 +37,11 @@ public class CategoryBuilder {
             for (int i = 0; i < adsJson.length(); i++) {
                 JSONObject adJson = adsJson.getJSONObject(i);
                 Ad ad = new Ad();
-                ad.setId(adJson.getInt(Ad.JSON_TAG_ID));
+                ad.setId(adJson.getString(Ad.JSON_TAG_NAME));
                 ad.setTitle(adJson.getString(Ad.JSON_TAG_TITLE));
                 ad.setPrice(adJson.getDouble(Ad.JSON_TAG_PRICE));
-                ad.setPostedAt(Constants.DATE_FORMAT.parse(adJson.getString(Ad.JSON_TAG_POSTED_AT)));
-                ad.setPostedFrom(adJson.getString(Ad.JSON_TAG_POSTED_FROM));
+                ad.setTime(Constants.DATE_FORMAT.parse(adJson.getString(Ad.JSON_TAG_TIME)));
+                ad.setPlace(adJson.getString(Ad.JSON_TAG_PLACE));
                 ads.add(ad);
             }
             category.setAds(ads);

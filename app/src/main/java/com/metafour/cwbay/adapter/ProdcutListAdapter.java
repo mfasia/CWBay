@@ -72,7 +72,7 @@ public class ProdcutListAdapter extends BaseAdapter {
                 holder = (ViewHolder1) vi.getTag();
             }
             new ImageDownloadTask(mContext, "http://images04.olx-st.com/ui/26/06/36/t_1422569871_778610036_1.jpg", holder.prodImg).execute();
-            holder.prodFirst.setText(items.get(position).getPostedFrom());
+            holder.prodFirst.setText(items.get(position).getPlace());
             holder.prodTitle.setText(items.get(position).getTitle());
             holder.prodPrice.setText(String.valueOf(items.get(position).getPrice()));
         } catch (Exception e) {
