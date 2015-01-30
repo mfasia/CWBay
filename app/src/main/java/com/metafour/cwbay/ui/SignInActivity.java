@@ -88,7 +88,7 @@ public class SignInActivity extends ActionBarActivity implements WebConnection.C
             return;
         }
         Utility.showProgressBarAndDisableButton(progressBar, loginButton);
-        WebConnection.getInstance().connect(this, "http://192.168.1.176:8000");
+        WebConnection.getInstance().request(this, "http://192.168.1.176:8000");
         WebAPI.userLogin(this, new WebAPI.Callback<User>() {
             @Override
             public void onFailed(String reason) {

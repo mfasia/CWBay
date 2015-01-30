@@ -37,4 +37,10 @@
         android:layout_height="wrap_content"
         android:text="Root" />
 
+    <Button
+        android:id="@+id/mainBProfileUpdate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_update_profile" />
+
 </LinearLayout>
