@@ -2,6 +2,7 @@ package com.metafour.cwbay.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -62,4 +63,7 @@ public class Utility {
         activity.overridePendingTransition(R.animator.slight_in_left, R.animator.slight_out_right);
     }
 
+    public static SharedPreferences getPref(Context context) {
+        return context.getSharedPreferences(Constants.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+    }
 }
