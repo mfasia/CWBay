@@ -31,35 +31,11 @@ public class WebAPIWorkbenchActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     public void onClick(View v) {
-        EditText in = (EditText)findViewById(R.id.editText);
 
-        User u = new User();
-        u.setEmail(in.getText().toString());
-
-        WebAPI.userEdit(this, new WebAPI.Callback<User>() {
-            @Override
-            public void onFailed(String reason) {
-                Log.i(Constants.ACTIVITY_LOG_TAG, reason);
-            }
-
-            @Override
-            public void onSuccess(User responseObject) {
-                Log.i(Constants.ACTIVITY_LOG_TAG, responseObject.toString());
-            }
-        }, "nadim@meta4.com", u);
     }
 }

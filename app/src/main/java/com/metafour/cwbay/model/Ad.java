@@ -136,10 +136,20 @@ public class Ad {
         return images;
     }
 
+    /**
+     * List of links to images.
+     * @param images
+     */
     public void setImages(List<String> images) {
         this.images = images;
     }
 
+    /**
+     * Access value of customized field particular for this Ad/Subcategory.
+     * @param key
+     * @param defaultValue
+     * @return
+     */
     public String getProperty(String key, String defaultValue) {
         String value = properties.get(key);
         return value == null ? defaultValue : value;
