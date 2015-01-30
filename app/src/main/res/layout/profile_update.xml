@@ -9,19 +9,19 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signUpProgressBar"
+        android:id="@+id/profileUpdateProgressBar"
         android:layout_gravity="center_horizontal"
         android:visibility="invisible"/>
 
     <EditText
-        android:id="@+id/signUpFullName"
+        android:id="@+id/profileUpdateFullName"
         android:hint="@string/hint_full_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </EditText>
 
     <EditText
-        android:id="@+id/signUpEmail"
+        android:id="@+id/profileUpdateEmail"
         android:hint="@string/hint_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,11 +30,29 @@
     </EditText>
 
     <EditText
-        android:id="@+id/profileUpPassword"
+        android:id="@+id/profileUpdatePhone"
+        android:hint="@string/hint_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone">
+        <requestFocus />
+    </EditText>
+
+
+
+    <EditText
+        android:id="@+id/profileUpdateLocation"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_password"
-        android:inputType="textPassword" />
+        android:hint="@string/profileUpdateLocation"
+        />
+
+    <Button
+        android:id="@+id/profileUpdateChangePassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_change_password"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/profileUpdate"

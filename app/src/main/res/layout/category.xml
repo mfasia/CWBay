@@ -7,7 +7,6 @@
     android:gravity="center_vertical">
 
     <include layout="@layout/toolbar"/>
-    <include layout="@layout/slider_menu_list"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="top"
-        android:background="@drawable/cwbay_background1">
+        android:background="@drawable/blue_gradient">
 
         <TextView
             android:id="@+id/catLPath"
@@ -38,4 +37,6 @@
             />
 
     </LinearLayout>
+
+    <include layout="@layout/slider_menu_list"/>
 </android.support.v4.widget.DrawerLayout>

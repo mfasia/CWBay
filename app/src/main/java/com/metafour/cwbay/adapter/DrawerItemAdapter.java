@@ -5,48 +5,36 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.metafour.cwbay.R;
+import com.metafour.cwbay.model.Category;
 import com.metafour.cwbay.model.DrawerItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MURAD on 1/29/2015.
  */
-public class DrawerItemAdapter extends BaseAdapter {
+public class DrawerItemAdapter extends ArrayAdapter<DrawerItem> {
 
-    private Context context;
-    private ArrayList<DrawerItem> drawerItems;
-
-    public DrawerItemAdapter(Context context, ArrayList<DrawerItem> drawerItems){
-        this.context = context;
-        this.drawerItems = drawerItems;
-    }
-
-    @Override
-    public int getCount() {
-        return drawerItems.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return drawerItems.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+    public DrawerItemAdapter(Context context, int resource, int textViewResourceId, List<DrawerItem> items) {
+        super(context, resource, textViewResourceId, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        /*View view = super.getView(position, convertView, parent);
+        TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+        text1.setText(getItem(position).getName());
+        return view;*/
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
-                    context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                    getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.items_row, null);
         }
 
@@ -54,15 +42,20 @@ public class DrawerItemAdapter extends BaseAdapter {
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
         TextView txtCount = (TextView) convertView.findViewById(R.id.counter);
 
-        imgIcon.setImageResource(drawerItems.get(position).getIcon());
-        txtTitle.setText(drawerItems.get(position).getTitle());
+        DrawerItem item = getItem(position);
+        if (item.getType() == null && item.getIcon() == 0) {
+            imgIcon.setVisibility(View.INVISIBLE);
+            txtTitle.setSelected(true);
+        } else {
+            imgIcon.setImageResource(item.getIcon());
+        }
+        txtTitle.setText(item.getTitle());
 
         // displaying Number
         // check whether it set visible or not
-        if(drawerItems.get(position).getNumberVisibility()){
-            txtCount.setText(drawerItems.get(position).getNumber());
+        if(item.getNumberVisibility()){
+            txtCount.setText(item.getNumber());
         }else{
-            // hide the Number view
             txtCount.setVisibility(View.GONE);
         }
 

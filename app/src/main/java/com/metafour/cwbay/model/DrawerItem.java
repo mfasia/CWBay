@@ -5,9 +5,14 @@ package com.metafour.cwbay.model;
  */
 public class DrawerItem {
 
+    public enum ItemType {
+        CATEGORY, PROFILE;
+    }
     private String title;
     private int icon;
     private String number = "0";
+    private ItemType type;
+    private int id;
     // boolean to set visiblity of the number
     private boolean isNumberVisible = false;
 
@@ -23,6 +28,13 @@ public class DrawerItem {
         this.icon = icon;
         this.isNumberVisible = isNumberVisible;
         this.number = value;
+    }
+
+    public DrawerItem(String title, int icon, int id, ItemType type){
+        this.title = title;
+        this.icon = icon;
+        this.id = id;
+        this.type = type;
     }
 
     public String getTitle(){
@@ -55,5 +67,21 @@ public class DrawerItem {
 
     public void setNumberVisibility(boolean isNumberVisible){
         this.isNumberVisible = isNumberVisible;
+    }
+
+    public ItemType getType() {
+        return type;
+    }
+
+    public void setType(ItemType type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

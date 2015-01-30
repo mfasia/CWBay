@@ -38,7 +38,7 @@ public class CategoryActivity extends AbstractCWBayActivity {
     private TextView catLPath;
     private Category category;
     public static String path = ">>";
-    private String prevPath;
+    private String prevPath = ">>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class CategoryActivity extends AbstractCWBayActivity {
         WebAPI.categoryView(this.context, new WebAPI.Callback<Category>(){
             @Override
             public void onFailed(String reason) {
-                Log.i(Constants.ACTIVITY_LOG_TAG, reason);
+                Log.i(Constants.ACTIVITY_LOG_TAG, "Reason = " + reason);
                 Utility.showShortLengthToast(context, reason);
             }
             @Override
@@ -74,10 +74,11 @@ public class CategoryActivity extends AbstractCWBayActivity {
                 if (category.isHasChildren()) {
                     CategoryActivity.idToShow = category.getId();
                     showNextCategoryActivity(CategoryActivity.class);
-                } else if(category.getAds() != null){
-                    ProductListActivity.category = category;
-                    showNextCategoryActivity(ProductListActivity.class);
                 } else {
+                    ProductListActivity.catId = category.getId();
+                    showNextCategoryActivity(ProductListActivity.class);
+                }
+                /*else {
                     List<Ad> ads = new ArrayList<Ad>();
                     for(int i = 1; i <= 10; i++) {
                         Ad ad = new Ad();
@@ -90,7 +91,7 @@ public class CategoryActivity extends AbstractCWBayActivity {
                     ProductListActivity.category = category;
                     showNextCategoryActivity(ProductListActivity.class);
                     Utility.showShortLengthToast(context, "No ads found");
-                }
+                }*/
             }
 
         });
@@ -107,12 +108,9 @@ public class CategoryActivity extends AbstractCWBayActivity {
         catLItems.setAdapter(new SingleLineCategoryAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, category.getChildren()));
 
         if (idToShow > 0) {
-            prevPath = path;
-            path += (path.length() > 2 ? ">" : "") + category.getName();
-            catLPath.setText(path);
+            catLPath.setText(prevPath + category.getName());
         } else {
-            catLPath.setVisibility(View.INVISIBLE);
-            prevPath = ">>";
+            catLPath.setText(prevPath);
         }
     }
 

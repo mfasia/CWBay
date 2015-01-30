@@ -2,6 +2,7 @@ package com.metafour.cwbay.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -78,6 +79,10 @@ public class Utility {
         activity.overridePendingTransition(R.animator.slight_in_left, R.animator.slight_out_right);
     }
 
+    public static SharedPreferences getPref(Context context) {
+        return context.getSharedPreferences(Constants.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+    }
+
     public static Category getCategory(int id) {
         if (id == 0) {
             Category cat = new Category();
@@ -94,6 +99,10 @@ public class Utility {
             return cat;
         }
         return  null;
+    }
+
+    public static boolean isLoggedIn() {
+        return false;
     }
 
 }
