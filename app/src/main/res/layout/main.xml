@@ -1,40 +1,44 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_vertical"
-    android:background="@drawable/cwbay_background1">
+    android:gravity="center_vertical">
 
-    <Button
-        android:id="@+id/mainBSignIn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_sign_in"/>
+    <include layout="@layout/toolbar"/>
+    <include layout="@layout/slider_menu_list"/>
 
-    <Button
-        android:id="@+id/mainBSignUp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_sign_up" />
+    <LinearLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/cwbay_background1">
 
-    <Button
-        android:id="@+id/mainBCat"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Categories" />
+        <Button
+            android:id="@+id/mainBSignIn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_sign_in"/>
+
+        <Button
+            android:id="@+id/mainBSignUp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_sign_up" />
+
+        <Button
+            android:id="@+id/mainBCat"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Categories" />
 
 
-    <Button
-        android:id="@+id/mainBCatG"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Categories Grid" />
-
-    <Button
-        android:id="@+id/mainBRoot"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Root" />
-
-</LinearLayout>
+        <Button
+            android:id="@+id/mainBCatG"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Categories Grid" />
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

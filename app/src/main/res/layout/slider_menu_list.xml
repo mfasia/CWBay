@@ -1,0 +1,13 @@
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_slider_menu"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:choiceMode="singleChoice"
+    android:divider="@color/item_divider"
+    android:dividerHeight="1dp"
+    android:listSelector="@drawable/item_selector"
+    android:background="@color/item_background_normal"/>
+
+
+
