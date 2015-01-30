@@ -17,10 +17,10 @@ public class UserBuilder {
         try {
             user = new User();
             JSONObject jsonUser = new JSONObject(json);
-            user.setEmail(jsonUser.getString(User.JSON_TAG_EMAIL));
             user.setName(jsonUser.getString(User.JSON_TAG_NAME));
-            user.setImage(jsonUser.getString(User.JSON_TAG_IMAGE));
-            user.setMemberSince(Constants.DATE_FORMAT.parse(jsonUser.getString(User.JSON_TAG_MEMBER_SINCE)));
+            user.setEmail(jsonUser.getString(User.JSON_TAG_EMAIL));
+            user.setPhone(jsonUser.getString(User.JSON_TAG_PHONE));
+            user.setPlace(jsonUser.getString(User.JSON_TAG_PLACE));
         } catch (Exception e) {
             user = null;
         }
@@ -31,9 +31,12 @@ public class UserBuilder {
         String jsonStr = "";
         JSONObject json = new JSONObject();
         try {
-            json.put(User.JSON_TAG_EMAIL, user.getEmail());
-            json.put(User.JSON_TAG_PASSWORD, user.getPassword());
             json.put(User.JSON_TAG_NAME, user.getName());
+            json.put(User.JSON_TAG_EMAIL, user.getEmail());
+            json.put(User.JSON_TAG_PHONE, user.getPhone());
+            json.put(User.JSON_TAG_PLACE, user.getPlace());
+            json.put(User.JSON_TAG_PASSWORD, user.getPassword());
+
             jsonStr = json.toString();
         } catch (Exception e) {
             jsonStr = "";
