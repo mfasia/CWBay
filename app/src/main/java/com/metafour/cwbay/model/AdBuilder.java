@@ -19,6 +19,8 @@ public class AdBuilder {
         try {
             ad = new Ad();
             JSONObject jsonAd = new JSONObject(json);
+            ad.setCategoryName(jsonAd.getString(Ad.JSON_TAG_CATEGORY));
+            ad.setSubcategoryName(jsonAd.getString(Ad.JSON_TAG_SUBCATEGORY));
             ad.setTitle(jsonAd.getString(Ad.JSON_TAG_TITLE));
             ad.setDescription(jsonAd.getString(Ad.JSON_TAG_DESC));
             ad.setPrice(jsonAd.getDouble(Ad.JSON_TAG_PRICE));

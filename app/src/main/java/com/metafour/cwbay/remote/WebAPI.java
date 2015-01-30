@@ -201,6 +201,12 @@ public class WebAPI {
         "");
     }
 
+    /**
+     * Sample IDs = [ 54cba1e196d6b2930f431f79, 54cba20a96d6b29d0f431f7c, 54cba22696d6b29a0f431f83 ]
+     * @param context
+     * @param callback
+     * @param id
+     */
     public static void adDetails(final Context context, final Callback<Ad> callback, final String id) {
         WebConnection.getInstance().request(new WebConnection.Callback() {
             @Override

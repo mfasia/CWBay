@@ -8,6 +8,8 @@ import java.util.Map;
  * Created by nadim on 1/27/15.
  */
 public class Ad {
+    public static final String JSON_TAG_CATEGORY = "category";
+    public static final String JSON_TAG_SUBCATEGORY = "subcategory";
     public static final String JSON_TAG_TITLE = "title";
     public static final String JSON_TAG_DESC = "desc";
     public static final String JSON_TAG_PRICE = "price";
@@ -25,6 +27,8 @@ public class Ad {
     public static final String JSON_TAG_IMAGES = "images";
 
     private String id;
+    private String categoryName;
+    private String subcategoryName;
     private String title;
     private String description;
     private double price;
@@ -48,6 +52,22 @@ public class Ad {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getSubcategoryName() {
+        return subcategoryName;
+    }
+
+    public void setSubcategoryName(String subcategoryName) {
+        this.subcategoryName = subcategoryName;
     }
 
     public void setTitle(String title) {
@@ -157,10 +177,13 @@ public class Ad {
         return value == null ? defaultValue : value;
     }
 
+
     @Override
     public String toString() {
         return "Ad{" +
                 "id='" + id + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", subcategoryName='" + subcategoryName + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
