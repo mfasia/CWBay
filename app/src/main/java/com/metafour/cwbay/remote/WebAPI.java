@@ -12,6 +12,9 @@ import com.metafour.cwbay.util.Constants;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nadim on 1/21/15.
@@ -19,12 +22,13 @@ import java.net.URLEncoder;
 public class WebAPI {
     private static final String URL_ENCODING = "UTF-8";
 
-    private static final String USER_LOGIN_PATH = "/user/login/";
-    private static final String USER_VIEW_PATH = "/user/view/";
-    private static final String USER_EDIT_PATH = "/user/edit/";
-    private static final String USER_CREATE_PATH = "/user/create";
+    private static final Map<String, String> mockUserIds = new HashMap<String, String>(){{
+        put("nadim@meta4.com123", "54cb50fb96d6b28406431f11");
+        put("noor@meta4.com123", "54cb514f96d6b28406431f13");
+        put("mazhar@meta4.com123", "54cb517c96d6b28a06431f14");
+        put("murad@meta4.com123", "54cb51ad96d6b29706431f15");
+    }};
 
-    private static final String CATEGORY_VIEW_PATH = "/category/view/";
 
     public static interface Callback<T> {
         public void onFailed(String reason);
@@ -39,10 +43,12 @@ public class WebAPI {
      * @param pass User password
      */
     public static void userLogin(final Context context, final Callback<User> callback, final String email, final String pass) {
-        WebConnection.getInstance().setCredentials(email, pass);
-        String encodedEmail = email;
+        String mockEmail = mockUserIds.get(email + pass);
+        if (mockEmail == null) mockEmail = "54cb43c396d6b20805431f06";
+
+        String encodedEmail = mockEmail;
         try {
-            URLEncoder.encode(encodedEmail, URL_ENCODING);
+            encodedEmail = URLEncoder.encode(encodedEmail, URL_ENCODING);
         } catch (UnsupportedEncodingException e) {}
 
         WebConnection.getInstance().request(new WebConnection.Callback() {
@@ -67,14 +73,16 @@ public class WebAPI {
                 }
             }
         },
-        USER_LOGIN_PATH + encodedEmail);
+        encodedEmail);
     }
 
-    public static void userView(final Context context, final Callback<User> callback, final String email) {
-        String encodedEmail = email;
-        try {
-            URLEncoder.encode(encodedEmail, URL_ENCODING);
-        } catch (UnsupportedEncodingException e) {}
+    public static void userEdit(final Context context, final Callback<User> callback, final String email, final User user) {
+        String mockUri = mockUserIds.get(user.getEmail() + "123");
+        if (email.equalsIgnoreCase(user.getEmail())) mockUri = "54cb552696d6b2ef06431f1a";
+        else {
+            if (mockUri == null) mockUri = "54cb552696d6b2ef06431f1a";
+            else mockUri = "54cb53d696d6b2d206431f17";
+        }
 
         WebConnection.getInstance().request(new WebConnection.Callback() {
             @Override
@@ -83,6 +91,9 @@ public class WebAPI {
                     switch (response.getStatus()) {
                         case WebConnection.Status.OK:
                             callback.onSuccess(UserBuilder.build(response.getContent()));
+                            break;
+                        case WebConnection.Status.EXISTS:
+                            callback.onFailed(context.getResources().getString(R.string.email_is_not_available));
                             break;
                         default:
                             callback.onFailed(context.getResources().getString(R.string.net_err));
@@ -92,35 +103,14 @@ public class WebAPI {
                 }
             }
         },
-        USER_VIEW_PATH + encodedEmail);
-    }
-
-    public static void userEdit(final Context context, final Callback<User> callback, final String email, final User user) {
-        String encodedEmail = email;
-        try {
-            URLEncoder.encode(encodedEmail, URL_ENCODING);
-        } catch (UnsupportedEncodingException e) {}
-
-        WebConnection.getInstance().request(new WebConnection.Callback() {
-            @Override
-            public void onResponse(WebConnection.Response response) {
-                if (callback != null) {
-                    switch (response.getStatus()) {
-                        case WebConnection.Status.OK:
-                            callback.onSuccess(UserBuilder.build(response.getContent()));
-                            break;
-                        default:
-                            callback.onFailed(response.getContent());
-                            break;
-                    }
-
-                }
-            }
-        },
-        USER_EDIT_PATH + encodedEmail, UserBuilder.serialize(user));
+        mockUri, UserBuilder.serialize(user));
     }
 
     public static void userCreate(final Context context, final Callback<User> callback, final User user) {
+        String mockUri = mockUserIds.get(user.getEmail() + "123");
+        if (mockUri == null) mockUri = "54cb552696d6b2ef06431f1a";
+        else mockUri = "54cb53d696d6b2d206431f17";
+
         WebConnection.getInstance().request(new WebConnection.Callback() {
             @Override
             public void onResponse(WebConnection.Response response) {
@@ -128,7 +118,7 @@ public class WebAPI {
                     Log.i(Constants.ACTIVITY_LOG_TAG, response.getStatus() + "");
                     switch (response.getStatus()) {
                         case WebConnection.Status.EXISTS:
-                            callback.onFailed("Alreay exist");
+                            callback.onFailed(context.getResources().getString(R.string.email_is_not_available));
                             break;
                         case WebConnection.Status.OK:
                             callback.onSuccess(UserBuilder.build(response.getContent()));
@@ -141,7 +131,7 @@ public class WebAPI {
                 }
             }
         },
-        USER_CREATE_PATH, UserBuilder.serialize(user));
+        mockUri, UserBuilder.serialize(user));
     }
 
 
@@ -162,6 +152,6 @@ public class WebAPI {
                 }
             }
         },
-        CATEGORY_VIEW_PATH + id);
+        "");
     }
 }
