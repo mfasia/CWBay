@@ -1,7 +1,6 @@
 package com.metafour.cwbay;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,26 +17,25 @@ import com.metafour.cwbay.util.Constants;
 import com.metafour.cwbay.util.Utility;
 
 
-public class MainActivity extends ActionBarActivity implements WebConnection.Callback {
+public class MainActivity extends AbstractCWBayActivity implements WebConnection.Callback {
 
     private Button btnSignIn;
     private Button btnSignUp;
     private Button btnCat;
     private Button btnCatG;
-    private Button btnRoot;
     private Button btnProfileUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        WebConnection.getInstance().connect(this, "http://192.168.20.102:8000");
+        initialiseToolbar();
 
-        WebConnection.getInstance().request(this, "http://192.168.20.102:8000");
         btnSignIn = (Button)findViewById(R.id.mainBSignIn);
         btnSignUp = (Button)findViewById(R.id.mainBSignUp);
         btnCat = (Button)findViewById(R.id.mainBCat);
         btnCatG = (Button)findViewById(R.id.mainBCatG);
-        btnRoot = (Button)findViewById(R.id.mainBRoot);
         btnProfileUpdate = (Button)findViewById(R.id.mainBProfileUpdate);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -62,12 +60,6 @@ public class MainActivity extends ActionBarActivity implements WebConnection.Cal
             @Override
             public void onClick(View v) {
                 openCategoryGridPage(v);
-            }
-        });
-        btnRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRootPage(v);
             }
         });
         btnProfileUpdate.setOnClickListener(new View.OnClickListener() {
@@ -110,11 +102,6 @@ public class MainActivity extends ActionBarActivity implements WebConnection.Cal
         Log.i(Constants.ACTIVITY_LOG_TAG, "Going to open category grid page");
         CategoryGridActivity.idToShow = 0;
         openNextActivity(CategoryGridActivity.class);
-    }
-
-    public void openRootPage(View v) {
-        Log.i(Constants.ACTIVITY_LOG_TAG, "Going to open root page");
-        openNextActivity(RootActivity.class);
     }
 
     private void openNextActivity(Class clz) {

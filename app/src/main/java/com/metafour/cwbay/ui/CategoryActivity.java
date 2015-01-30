@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.metafour.cwbay.AbstractCWBayActivity;
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.adapter.SingleLineCategoryAdapter;
 import com.metafour.cwbay.model.Ad;
@@ -30,7 +31,7 @@ import java.util.Map;
 /**
  * Created by Noor on 1/27/2015.
  */
-public class CategoryActivity extends ActionBarActivity {
+public class CategoryActivity extends AbstractCWBayActivity {
     public static int idToShow;
     private Context context;
     private ListView catLItems;
@@ -43,6 +44,8 @@ public class CategoryActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category);
+
+        initialiseToolbar();
 
         this.context = getApplicationContext();
         this.catLItems = (ListView) findViewById(R.id.catLItems);

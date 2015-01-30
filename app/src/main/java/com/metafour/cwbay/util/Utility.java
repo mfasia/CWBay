@@ -3,12 +3,29 @@ package com.metafour.cwbay.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
+>>>>>>> final_battle
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.metafour.cwbay.R;
+import com.metafour.cwbay.adapter.DrawerItemAdapter;
+import com.metafour.cwbay.model.Category;
+import com.metafour.cwbay.model.DrawerItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Noor on 1/22/2015.
@@ -66,4 +83,23 @@ public class Utility {
     public static SharedPreferences getPref(Context context) {
         return context.getSharedPreferences(Constants.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
     }
+
+    public static Category getCategory(int id) {
+        if (id == 0) {
+            Category cat = new Category();
+            cat.setName("Test");
+            List<Category> children = new ArrayList<Category>();
+            for (int i = 0; i < 24; i++) {
+                Category child = new Category();
+                child.setId(i + 1);
+                child.setName("Test " + child.getId());
+                child.setHasChildren(true);
+                children.add(child);
+            }
+            cat.setChildren(children);
+            return cat;
+        }
+        return  null;
+    }
+
 }
