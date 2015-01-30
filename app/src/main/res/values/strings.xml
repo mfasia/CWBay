@@ -7,6 +7,7 @@
     <string name="title_activity_login">Login</string>
     <string name="hint_full_name">Full name</string>
     <string name="hint_email">Email</string>
+    <string name="hint_phone">Mobile Number</string>
     <string name="hint_password">Password</string>
     <string name="hint_conf_password">Confirm password</string>
     <string name="btn_sign_in">Sign in</string>
@@ -14,17 +15,22 @@
     <string name="net_err">Network error</string>
     <string name="login_cred_empty">Email and/or password empty</string>
     <string name="login_invalid_cred">Invalid email and/or password</string>
+    <string name="email_is_not_available">Email is not available</string>
     <string name="title_activity_profile_update">Profile</string>
     <string name="btn_profile_up">Update profile</string>
+    <string name="email_is_not_available">Email is not available</string>
+    <string name="btn_change_password">Change password</string>
+    <string name="profileUpdateLocation">Your location</string>
+    <string name="btn_update_profile">Update Profile</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item >Home</item>
-        <item >Find a product</item>
-        <item >Your Product</item>
-        <item >Recent product</item>
-        <item >Category</item>
-        <item >Explore strange</item>
+        <item>Home</item>
+        <item>Find a product</item>
+        <item>Your Product</item>
+        <item>Recent product</item>
+        <item>Category</item>
+        <item>Explore strange</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -40,5 +46,6 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_web_apiworkbench">WebAPIWorkbenchActivity</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.metafour.cwbay.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+>>>>>>> final_battle
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -76,6 +78,10 @@ public class Utility {
      */
     public static void backWithAnimation(Activity activity) {
         activity.overridePendingTransition(R.animator.slight_in_left, R.animator.slight_out_right);
+    }
+
+    public static SharedPreferences getPref(Context context) {
+        return context.getSharedPreferences(Constants.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
     }
 
     public static Category getCategory(int id) {

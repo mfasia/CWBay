@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.metafour.cwbay.remote.WebConnection;
 import com.metafour.cwbay.ui.CategoryActivity;
 import com.metafour.cwbay.ui.CategoryGridActivity;
+import com.metafour.cwbay.ui.ProfileUpdateActivity;
 import com.metafour.cwbay.ui.SignInActivity;
 import com.metafour.cwbay.ui.SignUpActivity;
 import com.metafour.cwbay.util.Constants;
@@ -22,6 +23,7 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
     private Button btnSignUp;
     private Button btnCat;
     private Button btnCatG;
+    private Button btnProfileUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
         btnSignUp = (Button)findViewById(R.id.mainBSignUp);
         btnCat = (Button)findViewById(R.id.mainBCat);
         btnCatG = (Button)findViewById(R.id.mainBCatG);
+        btnProfileUpdate = (Button)findViewById(R.id.mainBProfileUpdate);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +60,12 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
             @Override
             public void onClick(View v) {
                 openCategoryGridPage(v);
+            }
+        });
+        btnProfileUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProfileUpdate(v);
             }
         });
     }
@@ -98,5 +107,15 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
     private void openNextActivity(Class clz) {
         startActivity(new Intent(this, clz));
         Utility.nextWithAnimation(this);
+    }
+
+    public void openLogOutPage(View v) {
+        Log.i(Constants.ACTIVITY_LOG_TAG, "Going to logout from the app");
+        openNextActivity(MainActivity.class);
+    }
+
+    public void openProfileUpdate(View v){
+        Log.i(Constants.ACTIVITY_LOG_TAG, "Going to profile update");
+        openNextActivity(ProfileUpdateActivity.class);
     }
 }

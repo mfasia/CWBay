@@ -30,6 +30,14 @@
     </EditText>
 
     <EditText
+        android:id="@+id/signUpPhone"
+        android:hint="@string/hint_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone">
+    </EditText>
+
+    <EditText
         android:id="@+id/signUpPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -35,6 +35,12 @@
             android:text="Categories" />
 
 
+    <Button
+        android:id="@+id/mainBProfileUpdate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_update_profile" />
+
         <Button
             android:id="@+id/mainBCatG"
             android:layout_width="fill_parent"
