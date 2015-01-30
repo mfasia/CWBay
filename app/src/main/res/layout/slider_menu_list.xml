@@ -3,7 +3,6 @@
     android:layout_width="240dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:choiceMode="singleChoice"
     android:divider="@color/item_divider"
     android:dividerHeight="1dp"
     android:listSelector="@drawable/item_selector"

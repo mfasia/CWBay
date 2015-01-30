@@ -10,30 +10,49 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.metafour.cwbay.AbstractCWBayActivity;
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.adapter.ProdcutListAdapter;
+import com.metafour.cwbay.adapter.SingleLineCategoryAdapter;
+import com.metafour.cwbay.model.Ad;
 import com.metafour.cwbay.model.Category;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.util.Constants;
 import com.metafour.cwbay.util.Utility;
 
+import java.util.List;
+
 /**
  * Created by Noor on 1/29/2015.
  */
-public class ProductListActivity extends ActionBarActivity {
+public class ProductListActivity extends AbstractCWBayActivity {
+    public static int catId;
     private Context context;
     private GridView prodGItems;
-    public static Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_list);
 
+        initialiseToolbar();
+
         this.context = getApplicationContext();
         this.prodGItems = (GridView) findViewById(R.id.prodGItems);
 
-        this.prodGItems.setAdapter(new ProdcutListAdapter(this, category.getAds()));
+        WebAPI.categoryView(this.context, new WebAPI.Callback<Category>(){
+            @Override
+            public void onFailed(String reason) {
+                Log.i(Constants.ACTIVITY_LOG_TAG, "Reason = " + reason);
+                Utility.showShortLengthToast(context, reason);
+            }
+            @Override
+            public void onSuccess(Category category) {
+                Log.i(Constants.ACTIVITY_LOG_TAG, "Category list received successfully. " + category.toString());
+                showAds(category);
+            }
+        }, catId);
+//        this.prodGItems.setAdapter(new ProdcutListAdapter(this, category.getAds()));
 
 //        category = getDummyCategory();
         prodGItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -43,6 +62,14 @@ public class ProductListActivity extends ActionBarActivity {
             }
 
         });
+    }
+
+    private void showAds(Category category) {
+        List<Ad> ads = category.getAds();
+        while (ads.size() < 5) {
+            ads.add(ads.get(0));
+        }
+        prodGItems.setAdapter(new ProdcutListAdapter(this, ads));
     }
 
     @Override

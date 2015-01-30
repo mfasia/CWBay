@@ -1,26 +1,31 @@
 package com.metafour.cwbay;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.metafour.cwbay.adapter.DrawerItemAdapter;
+import com.metafour.cwbay.adapter.SingleLineCategoryAdapter;
 import com.metafour.cwbay.model.Category;
 import com.metafour.cwbay.model.DrawerItem;
+import com.metafour.cwbay.ui.CategoryActivity;
+import com.metafour.cwbay.ui.SignInActivity;
+import com.metafour.cwbay.ui.SignUpActivity;
 import com.metafour.cwbay.util.Constants;
 import com.metafour.cwbay.util.Utility;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Noor on 1/30/2015.
@@ -31,103 +36,78 @@ public abstract class AbstractCWBayActivity extends ActionBarActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    // nav drawer title
-    private CharSequence mDrawerTitle;
-
     // used to store app title
     private CharSequence mTitle;
 
-    // slide menu items
-    private String[] navMenuTitles;
-    private TypedArray navMenuIcons;
-
-    private ArrayList<DrawerItem> navDrawerItems;
-    private DrawerItemAdapter adapter;
-
     public void initialiseToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.startActionMode(new ActionMode.Callback() {
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                Log.i(Constants.ACTIVITY_LOG_TAG, "From callback 1");
-                return false;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                Log.i(Constants.ACTIVITY_LOG_TAG, "From callback 2");
-                return false;
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                Log.i(Constants.ACTIVITY_LOG_TAG, "From callback 3");
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                Log.i(Constants.ACTIVITY_LOG_TAG, "From callback 4");
-
-            }
-        });
-//        setSupportActionBar(toolbar);
-//        toolbar.startActionMode(mActionModeCallback)
-        mTitle = mDrawerTitle = getTitle();
-
-        // load slide menu items
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-
-        // nav drawer icons from resources
-        navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);
-
+        mTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slider_menu);
 
-        navDrawerItems = new ArrayList<DrawerItem>();
-
-
-
-        for (Category child : Utility.getCategory(0).getChildren()) {
-            navDrawerItems.add(new DrawerItem(child.getName(), navMenuIcons.getResourceId(3, -1), false, String.valueOf(child.getId())));
+        String[] categories = getResources().getStringArray(R.array.nav_drawer_items_category);
+        TypedArray navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons_category);
+        List<DrawerItem> items = new ArrayList<DrawerItem>();
+        DrawerItem item = new DrawerItem("Welcome", R.drawable.cwbay_logo);
+        items.add(item);
+        if (Utility.isLoggedIn()) {
+            // TODO
+        } else {
+            items.add(new DrawerItem("Sign in", 0, 1001, DrawerItem.ItemType.PROFILE));
+            items.add(new DrawerItem("Sign up", 0, 1002, DrawerItem.ItemType.PROFILE));
         }
-
+        item = new DrawerItem("CATEGORY", 0);
+        items.add(item);
+        int i = 0;
+        for (String cat : categories) {
+            item = new DrawerItem(cat, navMenuIcons.getResourceId(i, -1), (101 + i++), DrawerItem.ItemType.CATEGORY);
+            items.add(item);
+        }
         // Recycle the typed array
         navMenuIcons.recycle();
 
-        // setting the nav drawer list adapter
-        adapter = new DrawerItemAdapter(getApplicationContext(),
-                navDrawerItems);
-        mDrawerList.setAdapter(adapter);
+        mDrawerList.setAdapter(new DrawerItemAdapter(this, R.layout.items_row, 0, items));
+
+        mDrawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, final View view,
+                                    int position, long id) {
+                final DrawerItem item = (DrawerItem) parent.getItemAtPosition(position);
+                if (item.getType() == DrawerItem.ItemType.CATEGORY) {
+                    CategoryActivity.idToShow = item.getId();
+                    openNextActivity(CategoryActivity.class);
+                } else if (item.getType() == DrawerItem.ItemType.PROFILE) {
+                    if (item.getId() == 1001) {
+                        openNextActivity(SignInActivity.class);
+                    } else if (item.getId() == 1002) {
+                        openNextActivity(SignUpActivity.class);
+                    }
+                }
+                mDrawerLayout.closeDrawer(mDrawerList);
+            }
+
+        });
 
         // enabling action bar app icon and behaving it as toggle button
         android.support.v7.app.ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        ab.setHomeButtonEnabled(true);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
-        ){
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name){
+            @Override
             public void onDrawerClosed(View view) {
                 getSupportActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
+            @Override
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
+                getSupportActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-
-    private void showCategories(Category category) {
-
-
     }
 
     @Override
@@ -138,8 +118,15 @@ public abstract class AbstractCWBayActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // toggle nav drawer on selecting action bar app icon/title
-        return (mDrawerToggle.onOptionsItemSelected(item) || item.getItemId() == R.id.action_settings) ? true : super.onOptionsItemSelected(item);
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     /* *
@@ -175,5 +162,10 @@ public abstract class AbstractCWBayActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    void openNextActivity(Class clz) {
+        startActivity(new Intent(this, clz));
+        Utility.nextWithAnimation(this);
     }
 }

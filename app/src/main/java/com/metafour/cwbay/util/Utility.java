@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
->>>>>>> final_battle
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -100,6 +99,10 @@ public class Utility {
             return cat;
         }
         return  null;
+    }
+
+    public static boolean isLoggedIn() {
+        return false;
     }
 
 }

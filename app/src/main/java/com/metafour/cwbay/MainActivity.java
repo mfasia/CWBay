@@ -29,7 +29,7 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        WebConnection.getInstance().connect(this, "http://192.168.20.102:8000");
+        WebConnection.getInstance().connect(this, "http://192.168.20.100:8000");
         initialiseToolbar();
 
         btnSignIn = (Button)findViewById(R.id.mainBSignIn);
@@ -102,11 +102,6 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
         Log.i(Constants.ACTIVITY_LOG_TAG, "Going to open category grid page");
         CategoryGridActivity.idToShow = 0;
         openNextActivity(CategoryGridActivity.class);
-    }
-
-    private void openNextActivity(Class clz) {
-        startActivity(new Intent(this, clz));
-        Utility.nextWithAnimation(this);
     }
 
     public void openLogOutPage(View v) {

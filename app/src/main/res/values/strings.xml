@@ -18,7 +18,6 @@
     <string name="email_is_not_available">Email is not available</string>
     <string name="title_activity_profile_update">Profile</string>
     <string name="btn_profile_up">Update profile</string>
-    <string name="email_is_not_available">Email is not available</string>
     <string name="btn_change_password">Change password</string>
     <string name="profileUpdateLocation">Your location</string>
     <string name="btn_update_profile">Update Profile</string>
@@ -33,9 +32,40 @@
         <item>Explore strange</item>
     </string-array>
 
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items_category">
+        <item>Mobiles &amp; Tablets</item>
+        <item>Electronics &amp; Computers</item>
+        <item>Vehicles</item>
+        <item>Home &amp; Furniture</item>
+        <item>Pets</item>
+        <item>Books, CDs &amp; Hobbies</item>
+        <item>Clothing &amp; Accessories</item>
+        <item>Kids &amp; Baby</item>
+        <item>Sports &amp; Health</item>
+        <item>Services</item>
+        <item>Jobs</item>
+        <item>Real Estate</item>
+    </string-array>
+
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+    </array>
+
+    <array name="nav_drawer_icons_category">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_home</item>
