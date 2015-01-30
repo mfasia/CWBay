@@ -11,4 +11,7 @@ public class Constants {
     public static final String REMOTE_LOG_TAG = "CWBay::Remote";
 
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
+    public static final String PREFERENCE_FILE_KEY = "com.metafour.cwbay.PREFERENCE_FILE_KEY";
+
 }

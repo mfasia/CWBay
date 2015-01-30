@@ -1,6 +1,7 @@
 package com.metafour.cwbay.remote;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.metafour.cwbay.R;
@@ -9,10 +10,10 @@ import com.metafour.cwbay.model.CategoryBuilder;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.model.UserBuilder;
 import com.metafour.cwbay.util.Constants;
+import com.metafour.cwbay.util.Utility;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,7 @@ public class WebAPI {
      * @param email User email
      * @param pass User password
      */
+
     public static void userLogin(final Context context, final Callback<User> callback, final String email, final String pass) {
         String mockEmail = mockUserIds.get(email + pass);
         if (mockEmail == null) mockEmail = "54cb43c396d6b20805431f06";
@@ -63,7 +65,9 @@ public class WebAPI {
                             callback.onFailed(context.getResources().getString(R.string.login_invalid_cred));
                             break;
                         case WebConnection.Status.OK:
-                            callback.onSuccess(UserBuilder.build(response.getContent()));
+                            User user = UserBuilder.build(response.getContent());
+                            setLoggedInUser(context, user);
+                            callback.onSuccess(user);
                             break;
                         default:
                             callback.onFailed(context.getResources().getString(R.string.net_err));
@@ -74,6 +78,18 @@ public class WebAPI {
             }
         },
         encodedEmail);
+    }
+
+    public static void userLogout(final Context context, final Callback<User> callback) {
+        WebConnection.getInstance().request(new WebConnection.Callback() {
+            @Override
+            public void onResponse(WebConnection.Response response) {
+                if (callback != null) {
+                    setLoggedInUser(context, null);
+                    callback.onSuccess(null);
+                }
+            }
+        });
     }
 
     public static void userEdit(final Context context, final Callback<User> callback, final String email, final User user) {
@@ -134,7 +150,35 @@ public class WebAPI {
         mockUri, UserBuilder.serialize(user));
     }
 
+    public static User getLoggedInUser(Context context) {
+        SharedPreferences pref = Utility.getPref(context);
+        String email = pref.getString("user.email", null);
+        if (email == null) return null;
+        User user = new User();
+        user.setEmail(email);
+        user.setName(pref.getString("user.name", null));
+        user.setPhone(pref.getString("user.phone", null));
+        user.setPlace(pref.getString("user.place", null));
+        return user;
+    }
 
+    private static void setLoggedInUser(Context context, User user) {
+        SharedPreferences pref = Utility.getPref(context);
+        SharedPreferences.Editor editor = pref.edit();
+
+        if (user == null) {
+            editor.putString("user.name", null);
+            editor.putString("user.email", null);
+            editor.putString("user.phone", null);
+            editor.putString("user.place", null);
+        } else {
+            editor.putString("user.name", user.getName());
+            editor.putString("user.email", user.getEmail());
+            editor.putString("user.phone", user.getPhone());
+            editor.putString("user.place", user.getPlace());
+        }
+        editor.commit();
+    }
     public static void categoryView(final Context context, final Callback<Category> callback, final int id) {
         WebConnection.getInstance().request(new WebConnection.Callback() {
             @Override
