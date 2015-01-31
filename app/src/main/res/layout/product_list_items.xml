@@ -2,8 +2,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:mode="twoLine"
-    android:clickable="true"
+    android:clickable="false"
     android:paddingBottom="9dp"
     android:paddingTop="5dp"
     android:orientation="horizontal">
