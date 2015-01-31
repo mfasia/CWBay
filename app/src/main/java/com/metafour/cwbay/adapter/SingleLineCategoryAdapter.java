@@ -7,14 +7,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.metafour.cwbay.model.Category;
+import com.metafour.cwbay.model.Subcategory;
 
 import java.util.List;
 
 /**
  * Created by Noor on 1/29/2015.
  */
-public class SingleLineCategoryAdapter extends ArrayAdapter<Category> {
-    public SingleLineCategoryAdapter(Context context, int resource, int textViewResourceId, List<Category> categories) {
+public class SingleLineCategoryAdapter extends ArrayAdapter<Subcategory> {
+    public SingleLineCategoryAdapter(Context context, int resource, int textViewResourceId, List<Subcategory> categories) {
         super(context, resource, textViewResourceId, categories);
     }
 

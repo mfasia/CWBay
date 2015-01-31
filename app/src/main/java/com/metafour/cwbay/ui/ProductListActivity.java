@@ -1,21 +1,20 @@
 package com.metafour.cwbay.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.metafour.cwbay.AbstractCWBayActivity;
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.adapter.ProdcutListAdapter;
-import com.metafour.cwbay.adapter.SingleLineCategoryAdapter;
 import com.metafour.cwbay.model.Ad;
 import com.metafour.cwbay.model.Category;
+import com.metafour.cwbay.model.Subcategory;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.util.Constants;
 import com.metafour.cwbay.util.Utility;
@@ -26,7 +25,7 @@ import java.util.List;
  * Created by Noor on 1/29/2015.
  */
 public class ProductListActivity extends AbstractCWBayActivity {
-    public static int catId;
+    private String catId = "test";
     private Context context;
     private GridView prodGItems;
 
@@ -39,32 +38,39 @@ public class ProductListActivity extends AbstractCWBayActivity {
 
         this.context = getApplicationContext();
         this.prodGItems = (GridView) findViewById(R.id.prodGItems);
+        if (getIntent().getExtras() != null && getIntent().getExtras().getString("cat_id") != null) {
+            catId = getIntent().getExtras().getString("cat_id");
+        }
 
-        WebAPI.categoryView(this.context, new WebAPI.Callback<Category>(){
+        WebAPI.adsList(this.context, new WebAPI.Callback<Subcategory>() {
             @Override
             public void onFailed(String reason) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Reason = " + reason);
                 Utility.showShortLengthToast(context, reason);
             }
+
             @Override
-            public void onSuccess(Category category) {
+            public void onSuccess(Subcategory category) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Category list received successfully. " + category.toString());
                 showAds(category);
             }
-        }, catId);
-//        this.prodGItems.setAdapter(new ProdcutListAdapter(this, category.getAds()));
+        }, catId + "");
 
-//        category = getDummyCategory();
         prodGItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, final View view, int position, long id) {
-                showToast();
+                final Ad ad = (Ad) parent.getItemAtPosition(position);
+                Intent i = new Intent(ProductListActivity.this, ProductDetailsActivity.class);
+                i.putExtra("prod_id", ad.getId());
+                Log.i(Constants.ACTIVITY_LOG_TAG, ad.getId());
+                ProductListActivity.this.startActivity(i);
+                Utility.nextWithAnimation(ProductListActivity.this);
             }
 
         });
     }
 
-    private void showAds(Category category) {
+    private void showAds(Subcategory category) {
         List<Ad> ads = category.getAds();
         while (ads.size() < 5) {
             ads.add(ads.get(0));

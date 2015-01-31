@@ -32,10 +32,6 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".ui.CategoryGridActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name=".ui.ProfileUpdateActivity"
             android:label="@string/title_activity_profile_update" >
         </activity>

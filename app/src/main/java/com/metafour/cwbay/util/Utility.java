@@ -82,7 +82,7 @@ public class Utility {
     }
 
     public static Category getCategory(int id) {
-        if (id == 0) {
+        /*if (id == 0) {
             Category cat = new Category();
             cat.setName("Test");
             List<Category> children = new ArrayList<Category>();
@@ -95,7 +95,7 @@ public class Utility {
             }
             cat.setChildren(children);
             return cat;
-        }
+        }*/
         return  null;
     }
 
@@ -130,7 +130,7 @@ public class Utility {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 width, height);
         imageView.setLayoutParams(params);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         new ImageDownloadTask(activity, path, imageView).execute();
 
         layout.addView(imageView);

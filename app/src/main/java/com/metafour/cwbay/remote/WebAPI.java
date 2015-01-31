@@ -9,6 +9,8 @@ import com.metafour.cwbay.model.Ad;
 import com.metafour.cwbay.model.AdBuilder;
 import com.metafour.cwbay.model.Category;
 import com.metafour.cwbay.model.CategoryBuilder;
+import com.metafour.cwbay.model.Subcategory;
+import com.metafour.cwbay.model.SubcategoryBuilder;
 import com.metafour.cwbay.model.User;
 import com.metafour.cwbay.model.UserBuilder;
 import com.metafour.cwbay.util.Constants;
@@ -16,6 +18,7 @@ import com.metafour.cwbay.util.Utility;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +35,7 @@ public class WebAPI {
         put("murad@meta4.com123", "54cb51ad96d6b29706431f15");
     }};
 
+    private static final String[] mockAdIds = { "54cba1e196d6b2930f431f79", "54cba20a96d6b29d0f431f7c", "54cba22696d6b29a0f431f83" };
 
     public static interface Callback<T> {
         public void onFailed(String reason);
@@ -181,12 +185,13 @@ public class WebAPI {
         }
         editor.commit();
     }
-    public static void categoryView(final Context context, final Callback<Category> callback, final int id) {
+    public static void categoryView(final Context context, final Callback<Category> callback, final String id) {
         WebConnection.getInstance().request(new WebConnection.Callback() {
             @Override
             public void onResponse(WebConnection.Response response) {
                 if (callback != null) {
                     switch (response.getStatus()) {
+
                         case WebConnection.Status.OK:
                             callback.onSuccess(CategoryBuilder.build(response.getContent()));
                             break;
@@ -198,7 +203,7 @@ public class WebAPI {
                 }
             }
         },
-        id > 110 ? "54cc30e896d6b2031c431ff2" : "54cc2f1b96d6b2d21b431ff1");
+        "54cc7e2722f5cf8e0407e101");
     }
 
     /**
@@ -224,6 +229,26 @@ public class WebAPI {
                     }
                 }
             }
-        }, "54cba20a96d6b29d0f431f7c");
+        }, Arrays.asList(mockAdIds).contains(id) ? id : mockAdIds[0]);
+    }
+
+    public static void adsList(final Context context, final Callback<Subcategory> callback, final String subcategoryId) {
+        WebConnection.getInstance().request(new WebConnection.Callback() {
+            @Override
+            public void onResponse(WebConnection.Response response) {
+                if (callback != null) {
+                    switch (response.getStatus()) {
+                        case WebConnection.Status.OK:
+                            Subcategory scat = SubcategoryBuilder.build(response.getContent());
+                            scat.setId(subcategoryId);
+                            callback.onSuccess(scat);
+                            break;
+                        default:
+                            callback.onFailed(context.getResources().getString(R.string.net_err));
+                            break;
+                    }
+                }
+            }
+        }, "54cc6e1322f5cf830307e0f0");
     }
 }

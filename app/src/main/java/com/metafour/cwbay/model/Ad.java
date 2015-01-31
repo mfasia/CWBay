@@ -8,6 +8,7 @@ import java.util.Map;
  * Created by nadim on 1/27/15.
  */
 public class Ad {
+    public static final String JSON_TAG_ID = "id";
     public static final String JSON_TAG_CATEGORY = "category";
     public static final String JSON_TAG_SUBCATEGORY = "subcategory";
     public static final String JSON_TAG_TITLE = "title";
@@ -156,7 +157,6 @@ public class Ad {
 
     /**
      * List of links to images.
-     * @param images
      */
     public List<String> getImages() {
         return images;
@@ -177,7 +177,13 @@ public class Ad {
         return value == null ? defaultValue : value;
     }
 
+    public boolean hasProperty() {
+        return properties != null && !properties.isEmpty();
+    }
 
+    public boolean hasImage() {
+        return images != null && !images.isEmpty();
+    }
     @Override
     public String toString() {
         return "Ad{" +
