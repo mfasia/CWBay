@@ -6,6 +6,7 @@ import java.util.List;
  * Created by Nadim on 31-Jan-15.
  */
 public class Subcategory {
+    public static final String JSON_TAG_ID = "id";
     public static final String JSON_TAG_NAME = "subcategory";
     public static final String JSON_TAG_CATEGORY_NAME  = "category";
     public static final String JSON_TAG_ADS = "ads";

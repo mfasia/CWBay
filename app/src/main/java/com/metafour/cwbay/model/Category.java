@@ -6,25 +6,11 @@ import java.util.List;
  * Created by nadim on 1/26/15.
  */
 public class Category {
-    public static final String JSON_TAG_ID = "id";
-    public static final String JSON_TAG_NAME = "name";
-    public static final String JSON_TAG_CHILDREN = "children";
-    public static final String JSON_TAG_ADS = "ads";
-    public static final String JSON_TAG_HAS_CHILDREN = "hasChildren";
+    public static final String JSON_TAG_NAME = "category";
+    public static final String JSON_TAG_SUBCATS = "subcats";
 
-    private int id;
     private String name;
-    private List<Category> children;
-    private List<Ad> ads;
-    private boolean hasChildren;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private List<Subcategory> subcats;
 
     public String getName() {
         return name;
@@ -34,38 +20,19 @@ public class Category {
         this.name = name;
     }
 
-    public List<Category> getChildren() {
-        return children;
+    public List<Subcategory> getSubcats() {
+        return subcats;
     }
 
-    public void setChildren(List<Category> children) {
-        this.children = children;
-    }
-
-    public boolean isHasChildren() {
-        return hasChildren;
-    }
-
-    public void setHasChildren(boolean hasChildren) {
-        this.hasChildren = hasChildren;
-    }
-
-    public List<Ad> getAds() {
-        return ads;
-    }
-
-    public void setAds(List<Ad> ads) {
-        this.ads = ads;
+    public void setSubcats(List<Subcategory> subcats) {
+        this.subcats = subcats;
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", children=" + children +
-                ", ads=" + ads +
-                ", hasChildren=" + hasChildren +
+                "name='" + name + '\'' +
+                ", subcats=" + subcats +
                 '}';
     }
 }

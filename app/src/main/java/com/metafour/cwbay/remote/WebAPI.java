@@ -185,12 +185,13 @@ public class WebAPI {
         }
         editor.commit();
     }
-    public static void categoryView(final Context context, final Callback<Category> callback, final int id) {
+    public static void categoryView(final Context context, final Callback<Category> callback, final String id) {
         WebConnection.getInstance().request(new WebConnection.Callback() {
             @Override
             public void onResponse(WebConnection.Response response) {
                 if (callback != null) {
                     switch (response.getStatus()) {
+
                         case WebConnection.Status.OK:
                             callback.onSuccess(CategoryBuilder.build(response.getContent()));
                             break;
@@ -202,7 +203,7 @@ public class WebAPI {
                 }
             }
         },
-        id > 110 ? "54cc30e896d6b2031c431ff2" : "54cc2f1b96d6b2d21b431ff1");
+        "54cc7e2722f5cf8e0407e101");
     }
 
     /**

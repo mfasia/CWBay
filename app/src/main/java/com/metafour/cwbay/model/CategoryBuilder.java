@@ -21,33 +21,19 @@ public class CategoryBuilder {
         try {
             category = new Category();
             JSONObject jsonCategory = new JSONObject(json);
-            category.setId(jsonCategory.getInt(Category.JSON_TAG_ID));
             category.setName(jsonCategory.getString(Category.JSON_TAG_NAME));
-            List<Category> children = new ArrayList<Category>();
-            JSONArray childrenJson = jsonCategory.getJSONArray(Category.JSON_TAG_CHILDREN);
-            for (int i = 0; i < childrenJson.length(); i++) {
-                JSONObject childJson = childrenJson.getJSONObject(i);
-                Category child = new Category();
-                child.setId(childJson.getInt(Category.JSON_TAG_ID));
-                child.setName(childJson.getString(Category.JSON_TAG_NAME));
-                child.setHasChildren(childJson.getBoolean(Category.JSON_TAG_HAS_CHILDREN));
-                children.add(child);
+            List<Subcategory> subcats = new ArrayList<Subcategory>();
+            JSONArray jsonSCats  = jsonCategory.getJSONArray(Category.JSON_TAG_SUBCATS);
+            for (int i = 0; i < jsonSCats.length(); i++) {
+                Subcategory scat = new Subcategory();
+                JSONObject jsonSCat = jsonSCats.getJSONObject(i);
+                scat.setId(jsonSCat.getString(Subcategory.JSON_TAG_ID));
+                scat.setName(jsonSCat.getString("name"));
+                subcats.add(scat);
             }
-            category.setChildren(children);
-            JSONArray adsJson = jsonCategory.getJSONArray(Category.JSON_TAG_ADS);
-            List<Ad> ads = new ArrayList<Ad>();
-            for (int i = 0; i < adsJson.length(); i++) {
-                JSONObject adJson = adsJson.getJSONObject(i);
-                Ad ad = new Ad();
-                ad.setId(adJson.getString(Ad.JSON_TAG_DESC));
-                ad.setTitle(adJson.getString(Ad.JSON_TAG_TITLE));
-                ad.setPrice(adJson.getDouble(Ad.JSON_TAG_PRICE));
-                ad.setTime(Constants.DATE_FORMAT.parse(adJson.getString(Ad.JSON_TAG_TIME)));
-                ad.setPlace(adJson.getString(Ad.JSON_TAG_PLACE));
-                ads.add(ad);
-            }
-            category.setAds(ads);
+            category.setSubcats(subcats);
         } catch (Exception e) {
+            Log.e(Constants.ACTIVITY_LOG_TAG, e.getMessage());
             category = null;
         }
         return category;
