@@ -93,7 +93,7 @@ public class ProductDetailsActivity extends AbstractCWBayActivity {
             myGallery.addView(Utility.getLayoutForImage(this, path, 220, 0));
         }
         detLoc.setText(ad.getPlace());
-        detPrice.setText(String.format("%.2f", ad.getPrice()));
+        detPrice.setText(String.format(Constants.PRICE_FORMAT, ad.getPrice()));
         detTitle.setText(ad.getTitle());
         detDesc.setText(ad.getDescription());
     }

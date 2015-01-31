@@ -14,4 +14,5 @@ public class Constants {
 
     public static final String PREFERENCE_FILE_KEY = "com.metafour.cwbay.PREFERENCE_FILE_KEY";
 
+    public static final String PRICE_FORMAT = "Tk %.2f";
 }

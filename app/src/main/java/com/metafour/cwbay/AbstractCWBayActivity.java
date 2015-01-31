@@ -74,7 +74,10 @@ public abstract class AbstractCWBayActivity extends ActionBarActivity {
                 final DrawerItem item = (DrawerItem) parent.getItemAtPosition(position);
                 if (item.getType() == DrawerItem.ItemType.CATEGORY) {
                     CategoryActivity.idToShow = item.getId();
-                    openNextActivity(CategoryActivity.class);
+                    Intent i = new Intent(AbstractCWBayActivity.this, CategoryActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    Utility.nextWithAnimation(AbstractCWBayActivity.this);
                 } else if (item.getType() == DrawerItem.ItemType.PROFILE) {
                     if (item.getId() == 1001) {
                         openNextActivity(SignInActivity.class);

@@ -14,6 +14,7 @@ import com.metafour.cwbay.R;
 import com.metafour.cwbay.adapter.ProdcutListAdapter;
 import com.metafour.cwbay.model.Ad;
 import com.metafour.cwbay.model.Category;
+import com.metafour.cwbay.model.Subcategory;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.util.Constants;
 import com.metafour.cwbay.util.Utility;
@@ -38,18 +39,19 @@ public class ProductListActivity extends AbstractCWBayActivity {
         this.context = getApplicationContext();
         this.prodGItems = (GridView) findViewById(R.id.prodGItems);
 
-        WebAPI.categoryView(this.context, new WebAPI.Callback<Category>(){
+        WebAPI.adsList(this.context, new WebAPI.Callback<Subcategory>() {
             @Override
             public void onFailed(String reason) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Reason = " + reason);
                 Utility.showShortLengthToast(context, reason);
             }
+
             @Override
-            public void onSuccess(Category category) {
+            public void onSuccess(Subcategory category) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Category list received successfully. " + category.toString());
                 showAds(category);
             }
-        }, catId);
+        }, catId + "");
 
         prodGItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,7 +67,7 @@ public class ProductListActivity extends AbstractCWBayActivity {
         });
     }
 
-    private void showAds(Category category) {
+    private void showAds(Subcategory category) {
         List<Ad> ads = category.getAds();
         while (ads.size() < 5) {
             ads.add(ads.get(0));
