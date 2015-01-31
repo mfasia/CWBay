@@ -130,7 +130,7 @@ public class Utility {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 width, height);
         imageView.setLayoutParams(params);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         new ImageDownloadTask(activity, path, imageView).execute();
 
         layout.addView(imageView);

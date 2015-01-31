@@ -1,19 +1,17 @@
 package com.metafour.cwbay.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.metafour.cwbay.AbstractCWBayActivity;
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.adapter.ProdcutListAdapter;
-import com.metafour.cwbay.adapter.SingleLineCategoryAdapter;
 import com.metafour.cwbay.model.Ad;
 import com.metafour.cwbay.model.Category;
 import com.metafour.cwbay.remote.WebAPI;
@@ -52,13 +50,16 @@ public class ProductListActivity extends AbstractCWBayActivity {
                 showAds(category);
             }
         }, catId);
-//        this.prodGItems.setAdapter(new ProdcutListAdapter(this, category.getAds()));
 
-//        category = getDummyCategory();
         prodGItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, final View view, int position, long id) {
-                showToast();
+                final Ad ad = (Ad) parent.getItemAtPosition(position);
+                Intent i = new Intent(ProductListActivity.this, ProductDetailsActivity.class);
+                i.putExtra("prod_id", ad.getId());
+                Log.i(Constants.ACTIVITY_LOG_TAG, ad.getId());
+                ProductListActivity.this.startActivity(i);
+                Utility.nextWithAnimation(ProductListActivity.this);
             }
 
         });
