@@ -8,6 +8,7 @@ import java.util.Map;
  * Created by nadim on 1/27/15.
  */
 public class Ad {
+    public static final String JSON_TAG_ID = "id";
     public static final String JSON_TAG_CATEGORY = "category";
     public static final String JSON_TAG_SUBCATEGORY = "subcategory";
     public static final String JSON_TAG_TITLE = "title";
