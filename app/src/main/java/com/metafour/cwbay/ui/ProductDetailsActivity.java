@@ -1,30 +1,23 @@
 package com.metafour.cwbay.ui;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Gallery;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.metafour.cwbay.AbstractCWBayActivity;
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.Ad;
-import com.metafour.cwbay.model.Category;
-import com.metafour.cwbay.process.ImageDownloadTask;
 import com.metafour.cwbay.remote.WebAPI;
 import com.metafour.cwbay.util.Constants;
 import com.metafour.cwbay.util.Utility;
 
-import java.io.File;
+import java.util.Map;
 
 /**
  * Created by Noor on 1/31/2015.
@@ -36,6 +29,7 @@ public class ProductDetailsActivity extends AbstractCWBayActivity {
     private TextView detPrice;
     private TextView detTitle;
     private TextView detDesc;
+    private GridView detTypes;
     private Ad ad;
 
     @Override
@@ -50,6 +44,7 @@ public class ProductDetailsActivity extends AbstractCWBayActivity {
         detPrice = (TextView) findViewById(R.id.detPrice);
         detTitle = (TextView) findViewById(R.id.detTitle);
         detDesc = (TextView) findViewById(R.id.detDesc);
+        detTypes = (GridView) findViewById(R.id.detTypes);
         if (getIntent().getExtras() != null) {
             prodId = getIntent().getExtras().getString("prod_id");
 
@@ -96,5 +91,35 @@ public class ProductDetailsActivity extends AbstractCWBayActivity {
         detPrice.setText(String.format(Constants.PRICE_FORMAT, ad.getPrice()));
         detTitle.setText(ad.getTitle());
         detDesc.setText(ad.getDescription());
+        if (ad.hasProperty()) {
+
+            detTypes.setAdapter(new ArrayAdapter<Object>(this, android.R.layout.simple_list_item_1, android.R.id.text1, ad.getProperties().entrySet().toArray()) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                    Map.Entry<String, String> entry = (Map.Entry<String, String>) getItem(position);
+                    text1.setText(entry.getKey() + ": " + entry.getValue());
+                    return view;
+                }
+            });
+        }
     }
+
+    /*private Button shareBtn;
+
+    shareBtn = (Button)findViewById(R.id.share_button);
+
+    shareBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getId()==R.id.share_button) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "http://dhakacity.olx.com.bd/yoyota-ist-model-04-rege-09-cc-1500-serial-25-colour-white-iid-779196215");
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check out this site!");
+                startActivity(Intent.createChooser(intent, "Share"));
+            }
+        }
+    });*/
 }

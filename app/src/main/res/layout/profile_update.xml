@@ -1,64 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_vertical" >
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/profileUpdateProgressBar"
-        android:layout_gravity="center_horizontal"
-        android:visibility="invisible"/>
-
-    <EditText
-        android:id="@+id/profileUpdateFullName"
-        android:hint="@string/hint_full_name"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </EditText>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/profileUpdateEmail"
-        android:hint="@string/hint_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress">
-        <requestFocus />
-    </EditText>
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileUpdateProgressBar"
+            android:layout_gravity="center_horizontal"
+            android:visibility="invisible"/>
 
-    <EditText
-        android:id="@+id/profileUpdatePhone"
-        android:hint="@string/hint_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone">
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/profileUpdateFullName"
+            android:hint="@string/hint_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <EditText
+            android:id="@+id/profileUpdateEmail"
+            android:hint="@string/hint_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress">
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/profileUpdatePhone"
+            android:hint="@string/hint_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone">
+            <requestFocus />
+        </EditText>
 
 
 
-    <EditText
-        android:id="@+id/profileUpdateLocation"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/profileUpdateLocation"
-        />
+        <EditText
+            android:id="@+id/profileUpdateLocation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/profileUpdateLocation"
+            />
 
-    <Button
-        android:id="@+id/profileUpdateChangePassword"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_change_password"
-        android:layout_marginBottom="10dp" />
+        <Button
+            android:id="@+id/profileUpdateChangePassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_change_password"
+            android:layout_marginBottom="10dp" />
 
-    <Button
-        android:id="@+id/profileUpdate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_profile_up"
-        android:layout_marginBottom="60dp" />
+        <Button
+            android:id="@+id/profileUpdate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_profile_up" />
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

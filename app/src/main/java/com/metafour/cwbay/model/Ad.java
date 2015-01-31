@@ -177,6 +177,9 @@ public class Ad {
         return value == null ? defaultValue : value;
     }
 
+    public boolean hasProperty() {
+        return properties != null && !properties.isEmpty();
+    }
 
     public boolean hasImage() {
         return images != null && !images.isEmpty();

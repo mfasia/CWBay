@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Noor on 1/29/2015.
  */
 public class ProductListActivity extends AbstractCWBayActivity {
-    public static int catId;
+    private String catId = "test";
     private Context context;
     private GridView prodGItems;
 
@@ -38,6 +38,9 @@ public class ProductListActivity extends AbstractCWBayActivity {
 
         this.context = getApplicationContext();
         this.prodGItems = (GridView) findViewById(R.id.prodGItems);
+        if (getIntent().getExtras() != null && getIntent().getExtras().getString("cat_id") != null) {
+            catId = getIntent().getExtras().getString("cat_id");
+        }
 
         WebAPI.adsList(this.context, new WebAPI.Callback<Subcategory>() {
             @Override

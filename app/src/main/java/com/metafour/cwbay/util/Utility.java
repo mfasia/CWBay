@@ -82,7 +82,7 @@ public class Utility {
     }
 
     public static Category getCategory(int id) {
-        if (id == 0) {
+        /*if (id == 0) {
             Category cat = new Category();
             cat.setName("Test");
             List<Category> children = new ArrayList<Category>();
@@ -95,7 +95,7 @@ public class Utility {
             }
             cat.setChildren(children);
             return cat;
-        }
+        }*/
         return  null;
     }
 
