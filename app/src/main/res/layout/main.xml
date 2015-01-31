@@ -13,38 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/blue_gradient">
+        android:background="@drawable/item_selector">
 
-        <Button
-            android:id="@+id/mainBSignIn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_sign_in"/>
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mainCategories"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:divider="@color/item_divider"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/item_selector"/>
 
-        <Button
-            android:id="@+id/mainBSignUp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_sign_up" />
-
-        <Button
-            android:id="@+id/mainBCat"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Categories" />
-
-
-    <Button
-        android:id="@+id/mainBProfileUpdate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_update_profile" />
-
-        <Button
-            android:id="@+id/mainBCatG"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Categories Grid" />
     </LinearLayout>
 
     <include layout="@layout/slider_menu_list"/>

@@ -1,27 +1,33 @@
 package com.metafour.cwbay;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 
+import com.metafour.cwbay.adapter.DrawerItemAdapter;
+import com.metafour.cwbay.model.DrawerItem;
 import com.metafour.cwbay.remote.WebConnection;
 import com.metafour.cwbay.ui.CategoryActivity;
 import com.metafour.cwbay.ui.ProductDetailsActivity;
 import com.metafour.cwbay.ui.ProductImagesActivity;
 import com.metafour.cwbay.ui.ProfileUpdateActivity;
 import com.metafour.cwbay.ui.SignInActivity;
+import com.metafour.cwbay.ui.SignUpActivity;
 import com.metafour.cwbay.util.Constants;
+import com.metafour.cwbay.util.Utility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AbstractCWBayActivity implements WebConnection.Callback {
 
-    private Button btnSignIn;
-    private Button btnSignUp;
-    private Button btnCat;
-    private Button btnCatG;
-    private Button btnProfileUpdate;
+    private ListView mainCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,40 +36,24 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
 //        WebConnection.getInstance().connect(this, "http://192.168.20.102:8000");
         initialiseToolbar();
 
-        btnSignIn = (Button)findViewById(R.id.mainBSignIn);
-        btnSignUp = (Button)findViewById(R.id.mainBSignUp);
-        btnCat = (Button)findViewById(R.id.mainBCat);
-        btnCatG = (Button)findViewById(R.id.mainBCatG);
-        btnProfileUpdate = (Button)findViewById(R.id.mainBProfileUpdate);
+        mainCategories = (ListView) findViewById(R.id.mainCategories);
+        List<DrawerItem> items = new ArrayList<DrawerItem>();
+        Utility.populateCategories(this, items);
+        mainCategories.setAdapter(new DrawerItemAdapter(this, R.layout.items_row, 0, items));
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        mainCategories.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                openSignInPage(v);
-            }
-        });
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSignUpPage(v);
-            }
-        });
-        btnCat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCategoryPage(v);
-            }
-        });
-        btnCatG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCategoryGridPage(v);
-            }
-        });
-        btnProfileUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openProfileUpdate(v);
+            public void onItemClick(AdapterView parent, final View view,
+                                    int position, long id) {
+                final DrawerItem item = (DrawerItem) parent.getItemAtPosition(position);
+                if (item.getType() == DrawerItem.ItemType.CATEGORY) {
+                    CategoryActivity.idToShow = item.getId();
+                    Intent i = new Intent(MainActivity.this, CategoryActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    Utility.nextWithAnimation(MainActivity.this);
+                }
+
             }
         });
     }

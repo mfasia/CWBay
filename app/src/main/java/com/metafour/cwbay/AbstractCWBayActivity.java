@@ -44,8 +44,8 @@ public abstract class AbstractCWBayActivity extends ActionBarActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slider_menu);
 
-        String[] categories = getResources().getStringArray(R.array.nav_drawer_items_category);
-        TypedArray navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons_category);
+        /*String[] categories = getResources().getStringArray(R.array.nav_drawer_items_category);
+        TypedArray navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons_category);*/
         List<DrawerItem> items = new ArrayList<DrawerItem>();
         DrawerItem item = new DrawerItem("Welcome", R.drawable.cwbay_logo);
         items.add(item);
@@ -57,13 +57,14 @@ public abstract class AbstractCWBayActivity extends ActionBarActivity {
         }
         item = new DrawerItem("CATEGORY", 0);
         items.add(item);
-        int i = 0;
+        /*int i = 0;
         for (String cat : categories) {
             item = new DrawerItem(cat, navMenuIcons.getResourceId(i, -1), (101 + i++), DrawerItem.ItemType.CATEGORY);
             items.add(item);
         }
         // Recycle the typed array
-        navMenuIcons.recycle();
+        navMenuIcons.recycle();*/
+        Utility.populateCategories(this, items);
 
         mDrawerList.setAdapter(new DrawerItemAdapter(this, R.layout.items_row, 0, items));
 

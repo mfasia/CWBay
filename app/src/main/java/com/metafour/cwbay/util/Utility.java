@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.Category;
+import com.metafour.cwbay.model.DrawerItem;
 import com.metafour.cwbay.process.ImageDownloadTask;
 
 import java.util.ArrayList;
@@ -83,22 +85,17 @@ public class Utility {
         return context.getSharedPreferences(Constants.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
     }
 
-    public static Category getCategory(int id) {
-        /*if (id == 0) {
-            Category cat = new Category();
-            cat.setName("Test");
-            List<Category> children = new ArrayList<Category>();
-            for (int i = 0; i < 24; i++) {
-                Category child = new Category();
-                child.setId(i + 1);
-                child.setName("Test " + child.getId());
-                child.setHasChildren(true);
-                children.add(child);
-            }
-            cat.setChildren(children);
-            return cat;
-        }*/
-        return  null;
+    public static void populateCategories(Activity activity, List<DrawerItem> items) {
+        String[] categories = activity.getResources().getStringArray(R.array.nav_drawer_items_category);
+        TypedArray navMenuIcons = activity.getResources().obtainTypedArray(R.array.nav_drawer_icons_category);
+
+        int i = 0;
+        for (String cat : categories) {
+            DrawerItem item = new DrawerItem(cat, navMenuIcons.getResourceId(i, -1), (101 + i++), DrawerItem.ItemType.CATEGORY);
+            items.add(item);
+        }
+        // Recycle the typed array
+        navMenuIcons.recycle();
     }
 
     public static boolean isLoggedIn() {
