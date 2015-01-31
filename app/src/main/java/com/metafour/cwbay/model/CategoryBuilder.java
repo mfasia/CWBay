@@ -1,5 +1,7 @@
 package com.metafour.cwbay.model;
 
+import android.util.Log;
+
 import com.metafour.cwbay.util.Constants;
 
 import org.json.JSONArray;
@@ -37,7 +39,7 @@ public class CategoryBuilder {
             for (int i = 0; i < adsJson.length(); i++) {
                 JSONObject adJson = adsJson.getJSONObject(i);
                 Ad ad = new Ad();
-                ad.setId(adJson.getString(Ad.JSON_TAG_NAME));
+                ad.setId(adJson.getString(Ad.JSON_TAG_DESC));
                 ad.setTitle(adJson.getString(Ad.JSON_TAG_TITLE));
                 ad.setPrice(adJson.getDouble(Ad.JSON_TAG_PRICE));
                 ad.setTime(Constants.DATE_FORMAT.parse(adJson.getString(Ad.JSON_TAG_TIME)));

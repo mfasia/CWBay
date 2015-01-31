@@ -5,15 +5,21 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.Category;
+import com.metafour.cwbay.model.DrawerItem;
+import com.metafour.cwbay.process.ImageDownloadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,20 +103,40 @@ public class Utility {
         return false;
     }
 
-    public static boolean isInternetAvailable(Context context){
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null){
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null) {
-                for (int i = 0; i < info.length; i++) {
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED){
-                        return true;
-                    }
-                }
-            }
+    /**
+     *
+     * @param activity
+     * @param path
+     * @param height
+     * @param width
+     * @return
+     */
+    public static View getLayoutForImage(Activity activity, String path, int height, int width){
+
+        LinearLayout layout = new LinearLayout(activity.getApplicationContext());
+        layout.setLayoutParams(new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+        layout.setGravity(Gravity.CENTER);
+
+        ImageView imageView = new ImageView(activity.getApplicationContext());
+
+        if (height == 0 || width == 0) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            height = height == 0 ? metrics.heightPixels : height;
+            width = width == 0 ? metrics.widthPixels : width;
         }
-        return false;
+        //Use RelativeLayout.LayoutParams if your parent is a RelativeLayout
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                width, height);
+        imageView.setLayoutParams(params);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        new ImageDownloadTask(activity, path, imageView).execute();
+
+        layout.addView(imageView);
+        return layout;
     }
+
     /**
      * Function to display simple Alert Dialog for internet connection
      *
@@ -119,7 +145,7 @@ public class Utility {
      * @param message - alert message
      * @param status - success/failure (used to set icon)
      * */
-    public static void showAlertInternet(Context context, String title, String message, Boolean status) {
+    public void showAlertInternet(Context context, String title, String message, Boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
         // Setting Dialog Title
