@@ -22,6 +22,15 @@
 
             <include layout="@layout/product_images"/>
 
+            <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:layout_gravity="center_horizontal"/>
+
             <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/RelativeLayout01"
@@ -72,6 +81,34 @@
                 android:stretchMode="columnWidth"
                 android:gravity="center"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/detCallSms"
+                android:visibility="invisible">
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:text="Phone: "
+                    android:id="@+id/detPhone"
+                    android:layout_weight="2"/>
+
+                <Button
+                    android:id="@+id/detBCall"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:text="Call"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/detBSms"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:text="SMS"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
     <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
@@ -81,25 +118,11 @@
         android:gravity="bottom">
 
         <Button
-            android:id="@+id/detBCall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Call"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/detBSms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SMS"
-            android:layout_weight="1"/>
-
-        <Button
             android:id="@+id/detBShare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Share"
-            android:layout_weight="1"/>
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <include layout="@layout/slider_menu_list"/>

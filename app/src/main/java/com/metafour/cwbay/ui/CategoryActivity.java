@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.metafour.cwbay.AbstractCWBayActivity;
@@ -40,6 +42,7 @@ public class CategoryActivity extends AbstractCWBayActivity {
     private Category category;
     public static String path = ">>";
     private String prevPath = ">>";
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,9 @@ public class CategoryActivity extends AbstractCWBayActivity {
         this.context = getApplicationContext();
         this.catLItems = (ListView) findViewById(R.id.catLItems);
         this.catLPath = (TextView) findViewById(R.id.catLPath);
+        this.spinner = (ProgressBar) findViewById(R.id.progressBar1);
 
+        spinner.setVisibility(View.VISIBLE);
         WebAPI.categoryView(this.context, new WebAPI.Callback<Category>(){
             @Override
             public void onFailed(String reason) {
@@ -62,6 +67,7 @@ public class CategoryActivity extends AbstractCWBayActivity {
             public void onSuccess(Category category1) {
                 category = category1;
                 showCategories();
+                spinner.setVisibility(View.GONE);
             }
         }, idToShow + "");
 

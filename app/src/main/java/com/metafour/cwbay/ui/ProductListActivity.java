@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.metafour.cwbay.AbstractCWBayActivity;
 import com.metafour.cwbay.R;
@@ -28,6 +29,7 @@ public class ProductListActivity extends AbstractCWBayActivity {
     private String catId = "test";
     private Context context;
     private GridView prodGItems;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,12 @@ public class ProductListActivity extends AbstractCWBayActivity {
 
         this.context = getApplicationContext();
         this.prodGItems = (GridView) findViewById(R.id.prodGItems);
+        this.spinner = (ProgressBar) findViewById(R.id.progressBar1);
         if (getIntent().getExtras() != null && getIntent().getExtras().getString("cat_id") != null) {
             catId = getIntent().getExtras().getString("cat_id");
         }
 
+        spinner.setVisibility(View.VISIBLE);
         WebAPI.adsList(this.context, new WebAPI.Callback<Subcategory>() {
             @Override
             public void onFailed(String reason) {
@@ -53,6 +57,7 @@ public class ProductListActivity extends AbstractCWBayActivity {
             public void onSuccess(Subcategory category) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Category list received successfully. " + category.toString());
                 showAds(category);
+                spinner.setVisibility(View.GONE);
             }
         }, catId + "");
 

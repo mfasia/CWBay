@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -179,5 +181,20 @@ public class Utility {
 
         // Showing Alert Message
         alertDialog.show();
+    }
+
+    public static void sendSms(Context context, String phoneNumber) {
+        Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
+        smsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        smsIntent.setType("vnd.android-dir/mms-sms");
+        smsIntent.putExtra("address",phoneNumber);
+        smsIntent.putExtra("sms_body","This is me");
+        context.startActivity(smsIntent);
+    }
+
+    public static void callToSeller(Context context, String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNumber));
+        context.startActivity(intent);
     }
 }
