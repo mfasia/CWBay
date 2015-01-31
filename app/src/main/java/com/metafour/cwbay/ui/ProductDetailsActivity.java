@@ -44,7 +44,7 @@ public class ProductDetailsActivity extends AbstractCWBayActivity {
             @Override
             public void onFailed(String reason) {
                 Log.i(Constants.ACTIVITY_LOG_TAG, "Reason = " + reason);
-                Utility.showShortLengthToast(context, reason);
+                Utility.showShortLengthToast(ProductDetailsActivity.this, reason);
             }
 
             @Override
