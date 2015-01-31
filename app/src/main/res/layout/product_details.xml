@@ -108,6 +108,10 @@
                     android:text="SMS"
                     android:layout_weight="1"/>
             </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:visibility="invisible"/>
 
         </LinearLayout>
     </ScrollView>
