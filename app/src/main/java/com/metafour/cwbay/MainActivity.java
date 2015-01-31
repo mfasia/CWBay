@@ -1,6 +1,5 @@
 package com.metafour.cwbay;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,14 +8,11 @@ import android.widget.Button;
 
 import com.metafour.cwbay.remote.WebConnection;
 import com.metafour.cwbay.ui.CategoryActivity;
-import com.metafour.cwbay.ui.CategoryGridActivity;
 import com.metafour.cwbay.ui.ProductDetailsActivity;
 import com.metafour.cwbay.ui.ProductImagesActivity;
 import com.metafour.cwbay.ui.ProfileUpdateActivity;
 import com.metafour.cwbay.ui.SignInActivity;
-import com.metafour.cwbay.ui.SignUpActivity;
 import com.metafour.cwbay.util.Constants;
-import com.metafour.cwbay.util.Utility;
 
 
 public class MainActivity extends AbstractCWBayActivity implements WebConnection.Callback {
