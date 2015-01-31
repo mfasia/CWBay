@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -95,6 +97,20 @@ public class Utility {
         return false;
     }
 
+    public static boolean isInternetAvailable(Context context){
+        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null){
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null) {
+                for (int i = 0; i < info.length; i++) {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     /**
      * Function to display simple Alert Dialog for internet connection
      *
@@ -103,7 +119,7 @@ public class Utility {
      * @param message - alert message
      * @param status - success/failure (used to set icon)
      * */
-    public void showAlertInternet(Context context, String title, String message, Boolean status) {
+    public static void showAlertInternet(Context context, String title, String message, Boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
         // Setting Dialog Title
