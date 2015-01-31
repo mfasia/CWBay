@@ -22,15 +22,23 @@ public class ProductImagesActivity extends Activity {
 
         if (getIntent().getExtras() != null) {
             Object images = getIntent().getExtras().get("images_array");
-            /*if (images != null) {
+            if (images != null) {
                 String[] arr = (String[]) images;
                 for(String path : arr) {
                     myGallery.addView(Utility.getLayoutForImage(this, path, 0, 0));
                 }
-            }*/
+            } else {
+                /*for(String path : new String[]{"http://images03.olx-st.com/ui/26/04/78/1422570877_778619678_1.jpg","http://images03.olx-st.com/ui/26/68/11/1422593045_778826711_1.jpg","http://images03.olx-st.com/ui/26/04/78/1422570877_778619678_1.jpg","http://images03.olx-st.com/ui/26/68/11/1422593045_778826711_1.jpg","http://images03.olx-st.com/ui/26/04/78/1422570877_778619678_1.jpg","http://images03.olx-st.com/ui/26/68/11/1422593045_778826711_1.jpg"}) {
+                    myGallery.addView(Utility.getLayoutForImage(this, path, 0, 0));
+                }*/
+            }
         }
-        for(String path : new String[]{"http://images03.olx-st.com/ui/26/04/78/1422570877_778619678_1.jpg","http://images03.olx-st.com/ui/26/68/11/1422593045_778826711_1.jpg","http://images03.olx-st.com/ui/26/04/78/1422570877_778619678_1.jpg","http://images03.olx-st.com/ui/26/68/11/1422593045_778826711_1.jpg","http://images03.olx-st.com/ui/26/04/78/1422570877_778619678_1.jpg","http://images03.olx-st.com/ui/26/68/11/1422593045_778826711_1.jpg"}) {
-            myGallery.addView(Utility.getLayoutForImage(this, path, 0, 0));
-        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Utility.backWithAnimation(this);
     }
 }
