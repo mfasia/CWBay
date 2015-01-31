@@ -10,6 +10,8 @@ import android.widget.Button;
 import com.metafour.cwbay.remote.WebConnection;
 import com.metafour.cwbay.ui.CategoryActivity;
 import com.metafour.cwbay.ui.CategoryGridActivity;
+import com.metafour.cwbay.ui.ProductDetailsActivity;
+import com.metafour.cwbay.ui.ProductImagesActivity;
 import com.metafour.cwbay.ui.ProfileUpdateActivity;
 import com.metafour.cwbay.ui.SignInActivity;
 import com.metafour.cwbay.ui.SignUpActivity;
@@ -29,7 +31,7 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        WebConnection.getInstance().connect(this, "http://192.168.20.100:8000");
+//        WebConnection.getInstance().connect(this, "http://192.168.20.102:8000");
         initialiseToolbar();
 
         btnSignIn = (Button)findViewById(R.id.mainBSignIn);
@@ -89,7 +91,7 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
 
     public void openSignUpPage(View v) {
         Log.i(Constants.ACTIVITY_LOG_TAG, "Going to open sign up page");
-        openNextActivity(SignUpActivity.class);
+        openNextActivity(ProductImagesActivity.class);
     }
 
     public void openCategoryPage(View v) {
@@ -100,8 +102,8 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
 
     public void openCategoryGridPage(View v) {
         Log.i(Constants.ACTIVITY_LOG_TAG, "Going to open category grid page");
-        CategoryGridActivity.idToShow = 0;
-        openNextActivity(CategoryGridActivity.class);
+        ProductDetailsActivity.prodId = "123";
+        openNextActivity(ProductDetailsActivity.class);
     }
 
     public void openLogOutPage(View v) {
