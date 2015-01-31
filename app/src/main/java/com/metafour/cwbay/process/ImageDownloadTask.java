@@ -63,7 +63,7 @@ public class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
 
             if (iw == vw && ih == vh) { // no need to scale
                 imageView.setImageBitmap(result);
-            } else if (ih > 220) {
+            } else if (vh > 220) {
                 if (iw < vw && ih < vh) {
                     double r = (double) vh / ih;
                     iw = (int) (r * iw);
