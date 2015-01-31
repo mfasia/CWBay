@@ -102,7 +102,6 @@ public class MainActivity extends AbstractCWBayActivity implements WebConnection
 
     public void openCategoryGridPage(View v) {
         Log.i(Constants.ACTIVITY_LOG_TAG, "Going to open category grid page");
-        ProductDetailsActivity.prodId = "123";
         openNextActivity(ProductDetailsActivity.class);
     }
 
