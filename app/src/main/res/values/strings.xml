@@ -60,18 +60,18 @@
     </array>
 
     <array name="nav_drawer_icons_category">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home</item>
+        <item>@drawable/mobile</item>
+        <item>@drawable/computer</item>
+        <item>@drawable/vehicle</item>
+        <item>@drawable/furniture</item>
+        <item>@drawable/pet</item>
+        <item>@drawable/books</item>
+        <item>@drawable/clothes</item>
+        <item>@drawable/kids</item>
+        <item>@drawable/sport</item>
+        <item>@drawable/service</item>
+        <item>@drawable/job</item>
+        <item>@drawable/realstate</item>
     </array>
 
     <!-- Content Description -->
