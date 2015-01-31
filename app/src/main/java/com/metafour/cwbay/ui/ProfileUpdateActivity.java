@@ -1,24 +1,17 @@
 package com.metafour.cwbay.ui;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.metafour.cwbay.R;
 import com.metafour.cwbay.model.User;
@@ -35,6 +28,7 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
     private EditText fullName, userEmail, phoneNumber,location;
     private ProgressBar progressBar;
     User user = new User();
+    User loggedUser = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +42,7 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
         this.phoneNumber = (EditText)findViewById(R.id.profileUpdatePhone);
         this.changePassword = (Button) findViewById(R.id.profileUpdateChangePassword);
         this.location = (EditText)findViewById(R.id.profileUpdateLocation);
+        this.loggedUser = WebAPI.getLoggedInUser(ProfileUpdateActivity.this);
         setUserData();
         changePassword.setOnClickListener(new View.OnClickListener() {
 
@@ -67,8 +62,8 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
     }
 
     private void setUserData(){
-        User loggedUser = WebAPI.getLoggedInUser(ProfileUpdateActivity.this);
         if(loggedUser != null){
+            Log.i(Constants.ACTIVITY_LOG_TAG,"Logged user - "+ loggedUser.toString());
             fullName.setText(loggedUser.getName());
             userEmail.setText(loggedUser.getEmail());
             phoneNumber.setText(loggedUser.getPhone());
@@ -89,6 +84,11 @@ public class ProfileUpdateActivity extends ActionBarActivity implements WebConne
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText oldPassword = (EditText) dialog.findViewById(R.id.dialog_txt_old_password);
+                if(oldPassword.getText().toString().isEmpty() || (!oldPassword.getText().toString().isEmpty() && oldPassword.getText().toString().equalsIgnoreCase(loggedUser.getPassword()))){
+                    Log.i(Constants.ACTIVITY_LOG_TAG,"No old password!");
+                    dialog.dismiss();
+                }
                 EditText password = (EditText) dialog.findViewById(R.id.dialog_txt_password);
                 EditText confPassword = (EditText) dialog.findViewById(R.id.dialog_txt_password);
                 if(password.getText().toString() != "" && (password.getText().toString().matches(confPassword.toString()))){
