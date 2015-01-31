@@ -71,10 +71,11 @@ public class ProdcutListAdapter extends BaseAdapter {
             } else {
                 holder = (ViewHolder1) vi.getTag();
             }
-            new ImageDownloadTask(mContext, "http://images04.olx-st.com/ui/26/06/36/t_1422569871_778610036_1.jpg", holder.prodImg).execute();
-            holder.prodFirst.setText(items.get(position).getPlace());
-            holder.prodTitle.setText(items.get(position).getTitle());
-            holder.prodPrice.setText(String.valueOf(items.get(position).getPrice()));
+            Ad ad = items.get(position);
+            new ImageDownloadTask(mContext, ad.hasImage() ? ad.getImages().get(0) : "http://images04.olx-st.com/ui/26/06/36/t_1422569871_778610036_1.jpg", holder.prodImg).execute();
+            holder.prodFirst.setText(ad.getPlace());
+            holder.prodTitle.setText(ad.getTitle());
+            holder.prodPrice.setText(String.format(Constants.PRICE_FORMAT, items.get(position).getPrice()));
         } catch (Exception e) {
             Log.i(Constants.ACTIVITY_LOG_TAG, "Failed to list the product items.", e);
         }

@@ -157,7 +157,6 @@ public class Ad {
 
     /**
      * List of links to images.
-     * @param images
      */
     public List<String> getImages() {
         return images;
@@ -179,6 +178,9 @@ public class Ad {
     }
 
 
+    public boolean hasImage() {
+        return images != null && !images.isEmpty();
+    }
     @Override
     public String toString() {
         return "Ad{" +
